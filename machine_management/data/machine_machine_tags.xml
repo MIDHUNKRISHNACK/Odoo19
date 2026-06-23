@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="machine_tag_energy_saver" model="machine.machine.tags">
+        <field name="machine_tags">Energy Saver</field>
+   </record>
+    <record id="machine_tag_best_seller" model="machine.machine.tags">
+        <field name="machine_tags">Best Seller</field>
+   </record>
+    <record id="machine_tag_new_arrival" model="machine.machine.tags">
+        <field name="machine_tags">New Arrival</field>
+   </record>
+
+</odoo>

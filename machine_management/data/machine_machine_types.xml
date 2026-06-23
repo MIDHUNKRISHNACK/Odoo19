@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="machine_data_type_vendor" model="machine.machine.types">
+        <field name="machine_type">Vendor</field>
+   </record>
+    <record id="machine_data_type_cooler" model="machine.machine.types">
+        <field name="machine_type">Cooler</field>
+   </record>
+    <record id="machine_data_type_laundry" model="machine.machine.types">
+        <field name="machine_type">Laundry</field>
+   </record>
+
+</odoo>

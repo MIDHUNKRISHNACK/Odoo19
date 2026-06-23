@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <record id="mech_seq" model="ir.sequence">
+     <field name="name">mech_seq</field>
+     <field name="code">m_seq</field>
+     <field name="prefix">M</field>
+     <field name="padding">5</field>
+     <field name="number_increment">1</field>
+ </record>
+
+</odoo>

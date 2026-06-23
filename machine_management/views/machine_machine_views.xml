@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--    treeview-->
+    <record model="ir.ui.view" id="machine_tree_views">
+        <field name="name">machine.machine.tree</field>
+        <field name="model">machine.machine</field>
+        <field name="arch" type="xml">
+            <list>
+                 <field name="machine_ref" />
+                <field name="machine_name"/>
+                <field name="date_of_purchase"/>
+                <field name="purchase_value"/>
+                <field name="quantity"/>
+                <field name="is_warrenty"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!--     formview -->
+    <record model="ir.ui.view" id="machine_forms_views">
+        <field name="name">machines.machine.form</field>
+        <field name="model">machine.machine</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_transfer_redirect" type="object" string="Machine Transfer" class="oe_highlight" />
+                    <field name="status" widget="statusbar" options="{'clickable':1}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                          <button class="oe_stat_button" type="object"
+                            name="action_open_machine_list"
+                            icon="fa-usd" invisible="not button_id">
+                              <div class="o_stat_info">
+                            <field name="transfer_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
+                                  <span class="o_stat_text">Transfers</span>
+                              </div>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar" nolabel="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="machine_ref" />
+                            <field name="machine_name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="serial_number"/>
+                            <field name="date_of_purchase"/>
+                            <field name="quantity"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="purchase_value"/>
+                        </group>
+
+                        <group>
+
+                             <field name="customer_name_id" invisible="status == 'active'"/>
+                            <field name="is_warrenty"/>
+                            <field name="machine_type_id"/>
+                            <field name="machine_tag_id" widget="many2many_tags" />
+
+                        </group>
+                    </group>
+
+                    <group>
+                        <notebook>
+                            <page string="Products" name="Products">
+                                <field name="product_ids" />
+
+
+                            </page>
+                            <page string="descriptions" name="Descriptions">
+
+                                <field name="description"/>
+
+                            </page>
+                            <page string="Instructions" name="instructions">
+
+                                <field name="instructions" placeholder="Add a description..."/>
+
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!--default-->
+
+    <record id="machine_mangt_actions" model="ir.actions.act_window">
+        <field name="name">Machines</field>
+        <field name="res_model">machine.machine</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create Your First Machine</p>
+        </field>
+    </record>
+
+</odoo>

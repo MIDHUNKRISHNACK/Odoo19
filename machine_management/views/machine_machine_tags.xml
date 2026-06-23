@@ -1,0 +1,24 @@
+<odoo>
+
+<!--   tree view-->
+     <record model="ir.ui.view" id="machine_tags_tree_views">
+        <field name="name">Machine tags</field>
+        <field name="model">machine.machine.tags</field>
+        <field name="arch" type="xml">
+            <list>
+
+                <field name="machine_tags"/>
+            </list>
+        </field>
+    </record>
+
+
+<!--    default-->
+    <record id="machine_tags_actions" model="ir.actions.act_window">
+        <field name="name">Machine tags</field>
+        <field name="res_model">machine.machine.tags</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+</odoo>
