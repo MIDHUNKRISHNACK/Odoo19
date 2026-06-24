@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!--    filters and groupby-->
+    <record id="machine_search_view" model="ir.ui.view">
+    <field name="name">Machine Search</field>
+   <field name="model">machine.machine</field>
+   <field name="arch" type="xml">
+       <search>
+            <field name="machine_name"/>
+            <field name="customer_name_id"/>
+            <filter name="filter_status_active" string="Active Status " domain="[('status','=','active')]" />
+            <filter name="filter_status_inservice" string="Inservice Status " domain="[('status','=','inservice')]" />
+             <group name="group_filters">
+                 <filter string="Employee" name="employee" context="{'group_by': 'customer_name_id'}"/>
+             </group>
+       </search>
+   </field>
+</record>
 
-    <!--    treeview-->
+
+        <!--    treeview-->
     <record model="ir.ui.view" id="machine_tree_views">
         <field name="name">machine.machine.tree</field>
         <field name="model">machine.machine</field>
@@ -63,16 +80,22 @@
                              <field name="customer_name_id" invisible="status == 'active'"/>
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>
-                            <field name="machine_tag_id" widget="many2many_tags" />
+                            <field name="machine_tag_id" widget="many2many_tags"  />
 
                         </group>
                     </group>
 
                     <group>
                         <notebook>
-                            <page string="Products" name="Products">
-                                <field name="product_ids" />
+                            <page string="Machine Parts" name="Products">
+                                <field name="product_ids" >
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="part_quantity"/>
+                                    <field name="part_uom"/>
 
+                                </list>
+                                </field>
 
                             </page>
                             <page string="descriptions" name="Descriptions">
@@ -95,6 +118,7 @@
     </record>
 
 
+
     <!--default-->
 
     <record id="machine_mangt_actions" model="ir.actions.act_window">
@@ -105,5 +129,6 @@
             <p class="o_view_nocontent_smiling_face">Create Your First Machine</p>
         </field>
     </record>
+
 
 </odoo>

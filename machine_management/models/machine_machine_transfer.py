@@ -15,6 +15,7 @@ class machine_machine_transfer(models.Model):
     company_id=fields.Many2one('res.company',string="Company", default=lambda self: self.env.user.company_id.id)
     instructions=fields.Html(string="Instruction")
     transfer_ribbon_id=fields.Boolean(default=False)
+    machine_status=fields.Char(string="Machine Status",Related="machine_name_id.status")
 
 
     def button_transfer(self):

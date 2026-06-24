@@ -5,7 +5,11 @@ class machine_machine_products(models.Model):
     _description = 'Machine Products'
 
     model_name_id = fields.Many2one('machine.machine', string="Machine Products")
-    product_id = fields.Many2one('product.template', string="Product Template")
-    field_1 = fields.Char()
-    field_2 = fields.Char()
-    field_3 = fields.Char()
+    product_id = fields.Many2one('product.template', string="Machine Parts")
+    part_name= fields.Char(string="Machine Parts",related='product_id.display_name')
+    part_quantity = fields.Float(string="Quantity")
+    part_uom=fields.Selection([('Unit','Unit'),('packages','Packages'),('liter','Liter')],string="Unit of Measure",default='Unit')
+
+
+
+

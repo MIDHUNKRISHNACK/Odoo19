@@ -9,7 +9,7 @@
              "data/machine_machine_tags.xml",
              "data/machine_sequence.xml",
             "data/machine_machine_types.xml",
-             "views/machine_machine_products.xml",
+             # "views/machine_machine_products.xml",
             "views/machine_machine_tags.xml",
              "views/machine_machine_transfer.xml",
              "views/machine_machine_types.xml",

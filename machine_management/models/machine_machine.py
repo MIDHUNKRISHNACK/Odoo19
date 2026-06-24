@@ -32,6 +32,7 @@ class machine_machine(models.Model):
     button_id=fields.Boolean(default=False)
     machine_tag_id=fields.Many2many('machine.machine.tags',string="Machine Tags")
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products")
+    # machine_name_ids=fields.One2many('machine.machine.transfer','machine_name_id')
 
 
 
@@ -70,8 +71,9 @@ class machine_machine(models.Model):
                      'res_model': 'machine.machine.transfer',
                      'view_mode': 'form',
                      'target': 'self',
-                 }
+                     'context': {'default_machine_name_id': self.id},
 
+                }
 
 
     @api.model_create_multi
