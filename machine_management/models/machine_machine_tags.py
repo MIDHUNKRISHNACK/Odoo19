@@ -7,3 +7,4 @@ class machine_machine_tags(models.Model):
 
 
     machine_tags=fields.Char(string="Machine Tags")
+    machine_tags_color=fields.Integer(string="Machine Tags Color")

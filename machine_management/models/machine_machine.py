@@ -1,4 +1,3 @@
-
 from odoo import models,fields,api,_
 from odoo.exceptions import ValidationError
 
@@ -30,16 +29,18 @@ class machine_machine(models.Model):
     serial_number=fields.Char(string="Serial Number")
     transfer_count=fields.Integer(string="Transfer Count",compute="_compute_transfer_count")
     button_id=fields.Boolean(default=False)
-    machine_tag_id=fields.Many2many('machine.machine.tags',string="Machine Tags")
+    machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products")
-    # machine_name_ids=fields.One2many('machine.machine.transfer','machine_name_id')
 
 
 
+     # sql constraints
     _serial_number_unique = models.Constraint(
         'unique(serial_number)',
         'The serial number of the machine is already exist give another .',
     )
+
+
 
     def _compute_transfer_count(self):
         """ Function to calculate transfer count of machine """
@@ -54,12 +55,15 @@ class machine_machine(models.Model):
            rec.transfer_count =transfer_count
 
 
+
     @api.constrains('purchase_value')
     def _check_purchase_value(self):
         """ Function to validate purchase value , less than or equal to zero"""
         for record in self:
             if record.purchase_value <=0:
                 raise ValidationError("Purchase value must be greater than 0")
+
+
 
 
 
@@ -76,6 +80,8 @@ class machine_machine(models.Model):
                 }
 
 
+
+
     @api.model_create_multi
     def create(self, vals_list):
         """ Function to create Sequence Number for each machines """
@@ -85,6 +91,7 @@ class machine_machine(models.Model):
                 vals['machine_ref'] = self.env['ir.sequence'].next_by_code('m_seq')
 
         return super(machine_machine,self).create(vals_list)
+
 
 
     def action_open_machine_list(self):

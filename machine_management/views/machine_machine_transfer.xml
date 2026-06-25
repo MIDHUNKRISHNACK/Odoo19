@@ -28,7 +28,7 @@
                     <widget name="web_ribbon" text="Transfered" bg_color="text-bg-danger" invisible="not transfer_ribbon_id"/>
                     <div class="oe_title">
                         <h1>
-                            <field name="machine_name_id"/>
+                            <field name="machine_name_id" domain="domain"/>
                         </h1>
                     </div>
                     <group>
@@ -45,6 +45,13 @@
                     </group>
                      <group>
                         <notebook>
+                            <page string="TEST" name="instructions">
+                                <group>
+                                <field name="machine_name_test" domain="[('id', 'in', alternate_machine_ids)]"/>
+                                <field name="transfer_type_test"/>
+                                </group>
+
+                            </page>
                             <page string="Instructions" name="instructions">
                                 <field name="instructions" placeholder="Add a description..."
                                        />
@@ -63,7 +70,7 @@
 
     <!--    default-->
     <record id="machine_transfer_actions" model="ir.actions.act_window">
-        <field name="name">Machine transfer action</field>
+        <field name="name">Machine transfer List</field>
         <field name="res_model">machine.machine.transfer</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">

@@ -1,4 +1,7 @@
-from odoo import fields, models
+from odoo import fields, models,api
+from odoo.fields import Command
+from odoo.orm.commands import Command
+
 
 class machine_machine_transfer(models.Model):
     _name = 'machine.machine.transfer'
@@ -15,17 +18,59 @@ class machine_machine_transfer(models.Model):
     company_id=fields.Many2one('res.company',string="Company", default=lambda self: self.env.user.company_id.id)
     instructions=fields.Html(string="Instruction")
     transfer_ribbon_id=fields.Boolean(default=False)
-    machine_status=fields.Char(string="Machine Status",Related="machine_name_id.status")
+    domain=fields.Char(string="Domain",compute="_compute_domain")
+    machine_name_test=fields.Many2one('machine.machine',string="Machine Name")
+    transfer_type_test=fields.Selection([('install','Install'),('remove','Remove')],string="Transfer Type",default='install')
+    alternate_machine_ids=fields.Many2many('machine.machine','machine_alt_rel',compute='_compute_alternate_machine_ids')
+
+
+
+    @api.depends('transfer_type_test')
+    def _compute_alternate_machine_ids(self):
+        # self.alternate_machine_ids=False
+        if self.transfer_type_test == 'install' and [('status','==','active')]:
+            self.write({
+                'alternate_machine_ids': [Command.link(self.machine_name_test.id)]
+            })
+
+
 
 
     def button_transfer(self):
         """Function For Actions that performing while clicking the transfer button"""
-
         for rec in self:
           if rec.machine_name_id:
-                rec.transfer_ribbon_id=True
-                rec.machine_name_id.status='inservice'
-                rec.machine_name_id.customer_name_id=rec.customer_name_id
+                print("rec", rec)
+                print("new", rec.machine_name_id)
+
+                rec.machine_name_id.write({'customer_name_id': rec.customer_name_id.id, })
+                rec.write({"transfer_ribbon_id":True})
+
+                rec.machine_name_id.write({'status':'inservice'})
+
+
+
+
+
+    @api.depends("transfer_type")
+
+    def _compute_domain(self):
+        """Function For Dynamic domain """
+        if self.transfer_type == 'install':
+            self.domain=[('status','=','active')]
+        elif self.transfer_type == 'remove':
+            self.domain=[('status','=','inservice')]
+        else:
+            self.domain=[]
+
+
+
+
+
+
+
+
+
 
 
 

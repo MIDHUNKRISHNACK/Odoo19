@@ -1,1 +1,1 @@
-from . import machine_machine,machine_machine_types,machine_machine_transfer,machine_machine_tags,machine_machine_products
+from . import machine_machine,machine_machine_types,machine_machine_transfer,machine_machine_tags,machine_machine_parts

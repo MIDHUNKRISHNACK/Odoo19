@@ -80,7 +80,7 @@
                              <field name="customer_name_id" invisible="status == 'active'"/>
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>
-                            <field name="machine_tag_id" widget="many2many_tags"  />
+                            <field name="machine_tag_ids" widget="many2many_tags" options="{'color_field': 'machine_tags_color'}"/>
 
                         </group>
                     </group>
@@ -116,7 +116,6 @@
             </form>
         </field>
     </record>
-
 
 
     <!--default-->

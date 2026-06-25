@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Main Menu  -->
-    <menuitem id="machine_menu" name="Machine" />
+    <menuitem id="machine_menu" name="Machine Management" />
 
     <!-- Sub Menu -->
     <menuitem id="menu_machines" name="Machines" parent="machine_menu" action="machine_mangt_actions" sequence="0"/>
@@ -10,7 +10,6 @@
 
 
     <!-- Sub Menu with actions -->
-
 
     <menuitem id="machine_types" name="Machine Types" parent="menu_settings" action="machine_types_actions" />
     <menuitem id="machine_tags" name="Machine Tags" parent="menu_settings" action="machine_tags_actions" />
