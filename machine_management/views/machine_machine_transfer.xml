@@ -22,10 +22,10 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                     <button name="button_transfer" type="object" string="Transfer" class="oe_highlight" invisible="transfer_ribbon_id"/>
+                     <button name="button_transfer" type="object" string="Transfer" class="oe_highlight" invisible="is_ribbon"/>
                 </header>
                 <sheet>
-                    <widget name="web_ribbon" text="Transfered" bg_color="text-bg-danger" invisible="not transfer_ribbon_id"/>
+                    <widget name="web_ribbon" text="Transfered" bg_color="text-bg-danger" invisible="not is_ribbon"/>
                     <div class="oe_title">
                         <h1>
                             <field name="machine_name_id" domain="domain"/>
@@ -53,14 +53,12 @@
 
                             </page>
                             <page string="Instructions" name="instructions">
-                                <field name="instructions" placeholder="Add a description..."
-                                       />
+                                <field name="instructions" placeholder="Add a description..." />
                             </page>
                         </notebook>
                     </group>
 
                 </sheet>
-
 
                 <chatter/>
             </form>

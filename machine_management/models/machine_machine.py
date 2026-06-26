@@ -1,5 +1,8 @@
+from email.policy import default
+
 from odoo import models,fields,api,_
 from odoo.exceptions import ValidationError
+import datetime
 
 class machine_machine(models.Model):
     _name = 'machine.machine'
@@ -28,9 +31,37 @@ class machine_machine(models.Model):
     machine_type_id=fields.Many2one('machine.machine.types',string="Machine Type")
     serial_number=fields.Char(string="Serial Number")
     transfer_count=fields.Integer(string="Transfer Count",compute="_compute_transfer_count")
-    button_id=fields.Boolean(default=False)
+    is_button_sts=fields.Boolean(default=False)
     machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products")
+    machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+
+
+    @api.depends('date_of_purchase')
+    def _compute_machine_age(self):
+        current_date=datetime.datetime.now().day
+        print(current_date)
+        demo=int(self.date_of_purchase)
+        print(demo)
+        age_machine=current_date-demo
+
+        self.machine_age=age_machine
+
+
+
+    # @api.ondelete(at_uninstall=True)
+    # def _check_before_delete(self):
+    #     for rec in self:
+    #         if rec.is_button_sts == True:
+    #             raise ValidationError("Machine is still in Transfer state ")
+
+
+
+    # def unlink(self):
+    #     for rec in self:
+    #         if rec.is_button_sts == True:
+    #             raise ValidationError("Machine is still in Transfer state ")
+    #     return super().unlink()
 
 
 
@@ -41,7 +72,6 @@ class machine_machine(models.Model):
     )
 
 
-
     def _compute_transfer_count(self):
         """ Function to calculate transfer count of machine """
         for rec in self:
@@ -50,10 +80,9 @@ class machine_machine(models.Model):
 
              ])
            if transfer_count >=1:
-                rec.button_id=True
+                rec.is_button_sts=True
 
            rec.transfer_count =transfer_count
-
 
 
     @api.constrains('purchase_value')
@@ -62,7 +91,6 @@ class machine_machine(models.Model):
         for record in self:
             if record.purchase_value <=0:
                 raise ValidationError("Purchase value must be greater than 0")
-
 
 
 
@@ -81,7 +109,6 @@ class machine_machine(models.Model):
 
 
 
-
     @api.model_create_multi
     def create(self, vals_list):
         """ Function to create Sequence Number for each machines """
@@ -91,6 +118,7 @@ class machine_machine(models.Model):
                 vals['machine_ref'] = self.env['ir.sequence'].next_by_code('m_seq')
 
         return super(machine_machine,self).create(vals_list)
+
 
 
 

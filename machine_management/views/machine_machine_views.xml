@@ -42,7 +42,7 @@
         <field name="name">machines.machine.form</field>
         <field name="model">machine.machine</field>
         <field name="arch" type="xml">
-            <form>
+            <form delete="True">
                 <header>
                     <button name="button_transfer_redirect" type="object" string="Machine Transfer" class="oe_highlight" />
                     <field name="status" widget="statusbar" options="{'clickable':1}"/>
@@ -51,7 +51,7 @@
                     <div class="oe_button_box" name="button_box">
                           <button class="oe_stat_button" type="object"
                             name="action_open_machine_list"
-                            icon="fa-usd" invisible="not button_id">
+                            icon="fa-usd" invisible="not is_button_sts">
                               <div class="o_stat_info">
                             <field name="transfer_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
                                   <span class="o_stat_text">Transfers</span>
@@ -70,6 +70,7 @@
                         <group>
                             <field name="serial_number"/>
                             <field name="date_of_purchase"/>
+                            <field name="machine_age"/>
                             <field name="quantity"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="purchase_value"/>
