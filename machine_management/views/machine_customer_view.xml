@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+
+        <record id="machine_machine_customer_view" model="ir.ui.view">
+            <field name="name">machine.machine.customer.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@priority='2']" position="after">
+                     <div class="oe_button_box" name="button_box">
+                          <button class="oe_stat_button" type="object"
+                            name="action_open_machine_list_view"
+                            icon="fa-usd" >
+                              <div class="o_stat_info">
+                            <span class="o_stat_text">Machines</span>
+                              </div>
+                        </button>
+                    </div>
+
+                </xpath>
+
+        </field>
+</record>
+ </data>
+</odoo>

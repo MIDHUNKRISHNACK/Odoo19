@@ -4,5 +4,6 @@ access_machine_machine_types,access.machine.machine.types,model_machine_machine_
 access_machine_machine_transfer,access.machine.machine.transfer,model_machine_machine_transfer,base.group_user,1,1,1,1
 access_machine_machine_tags,access.machine.machine.tags,model_machine_machine_tags,base.group_user,1,1,1,1
 access_machine_machine_products,access.machine.machine.products,model_machine_machine_products,base.group_user,1,1,1,1
+access_machine_machine_service,access.machine.machine.service,model_machine_machine_service,base.group_user,1,1,1,1
 
 

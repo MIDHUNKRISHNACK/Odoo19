@@ -45,6 +45,7 @@
             <form delete="True">
                 <header>
                     <button name="button_transfer_redirect" type="object" string="Machine Transfer" class="oe_highlight" />
+                    <button name="button_service_redirect" type="object" string="Machine Service" class="oe_highlight" />
                     <field name="status" widget="statusbar" options="{'clickable':1}"/>
                 </header>
                 <sheet>
@@ -55,6 +56,14 @@
                               <div class="o_stat_info">
                             <field name="transfer_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
                                   <span class="o_stat_text">Transfers</span>
+                              </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                            name="action_open_case_list"
+                            icon="fa-usd" invisible="not is_button_sts">
+                              <div class="o_stat_info">
+                            <field name="case_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
+                                  <span class="o_stat_text">Cases</span>
                               </div>
                         </button>
                     </div>
@@ -70,7 +79,7 @@
                         <group>
                             <field name="serial_number"/>
                             <field name="date_of_purchase"/>
-                            <field name="machine_age"/>
+<!--                            <field name="machine_age"/>-->
                             <field name="quantity"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="purchase_value"/>

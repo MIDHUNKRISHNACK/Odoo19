@@ -33,19 +33,21 @@ class machine_machine(models.Model):
     transfer_count=fields.Integer(string="Transfer Count",compute="_compute_transfer_count")
     is_button_sts=fields.Boolean(default=False)
     machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
+
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products")
-    machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+    case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
+    # machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
 
 
-    @api.depends('date_of_purchase')
-    def _compute_machine_age(self):
-        current_date=datetime.datetime.now().day
-        print(current_date)
-        demo=int(self.date_of_purchase)
-        print(demo)
-        age_machine=current_date-demo
-
-        self.machine_age=age_machine
+    # @api.depends('date_of_purchase')
+    # def _compute_machine_age(self):
+    #     current_date=datetime.datetime.now().day
+    #     print(current_date)
+    #     demo=int(self.date_of_purchase)
+    #     print(demo)
+    #     age_machine=current_date-demo
+    #
+    #     self.machine_age=age_machine
 
 
 
@@ -85,13 +87,26 @@ class machine_machine(models.Model):
            rec.transfer_count =transfer_count
 
 
+    def _compute_case_count(self):
+        """ Function to calculate case count of machine """
+        for rec in self:
+            case_count=self.env["machine.machine.service"].search_count([
+                ('machine_id', '=', rec.id)
+            ])
+            if case_count >=1:
+                rec.is_button_sts=True
+
+            rec.case_count=case_count
+
+
+
+
     @api.constrains('purchase_value')
     def _check_purchase_value(self):
         """ Function to validate purchase value , less than or equal to zero"""
         for record in self:
             if record.purchase_value <=0:
                 raise ValidationError("Purchase value must be greater than 0")
-
 
 
 
@@ -108,7 +123,6 @@ class machine_machine(models.Model):
                 }
 
 
-
     @api.model_create_multi
     def create(self, vals_list):
         """ Function to create Sequence Number for each machines """
@@ -118,7 +132,6 @@ class machine_machine(models.Model):
                 vals['machine_ref'] = self.env['ir.sequence'].next_by_code('m_seq')
 
         return super(machine_machine,self).create(vals_list)
-
 
 
 
@@ -132,6 +145,30 @@ class machine_machine(models.Model):
            'view_mode': 'list,form',
            'target': 'self',
     }
+
+    def action_open_case_list(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'machine_service_list',
+            'res_model': 'machine.machine.service',
+            'domain': [('machine_id', '=', self.id)],
+            'view_mode': 'list',
+            'target': 'self',
+            }
+
+
+    def button_service_redirect(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'machine_service_redirect',
+            'res_model': 'machine.machine.service',
+            'view_mode': 'form',
+            'target': 'self',
+            'context': {'default_machine_id': self.id,
+                        'default_customer_id':self.customer_name_id.id,
+                        'default_consumed_parts_ids':self.product_ids.ids,
+                        },
+        }
 
 
 
