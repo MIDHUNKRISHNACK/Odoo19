@@ -27,6 +27,7 @@
                 <header>
                     <button name="button_case_start" type="object" string="Start"  invisible="is_case_status == True" class="oe_highlight"/>
                     <button name="button_case_close" type="object" string="Close"  />
+                     <button name="machine_invoice" type="object" string="Invoice"  class="oe_highlight"/>
                      <field name="service_state" widget="statusbar" options="{'clickable':1}"/>
                 </header>
                 <sheet>
@@ -51,12 +52,11 @@
                     <group>
                         <notebook>
                             <page string="Consumed Parts" name="consumed_parts">
-                                <field name="consumed_parts_ids" >
+                                <field name="consumed_parts_ids">
                                 <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="part_quantity"/>
                                     <field name="part_uom"/>
-
                                 </list>
                                 </field>
 

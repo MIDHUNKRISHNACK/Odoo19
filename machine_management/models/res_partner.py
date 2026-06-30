@@ -4,6 +4,19 @@ class ResPartner(models.Model):
     _inherit='res.partner'
 
 
+    machine_id=fields.Many2one('machine.machine',string='Machine name')
+    machine_count=fields.Integer(compute='_compute_count',string='Number of Machines')
+
+
+    def _compute_count(self):
+        for rec in self:
+            machine_count = rec.env["machine.machine"].search_count([
+                ('customer_name_id','=',rec.id)
+            ])
+            rec.machine_count = machine_count
+
+
+
     def action_open_machine_list_view(self):
 
         return {

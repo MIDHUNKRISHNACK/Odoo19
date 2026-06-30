@@ -33,21 +33,22 @@ class machine_machine(models.Model):
     transfer_count=fields.Integer(string="Transfer Count",compute="_compute_transfer_count")
     is_button_sts=fields.Boolean(default=False)
     machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
-
-    product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products")
+    product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products",store=True)
     case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
-    # machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+    machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+    active_machine=fields.Boolean(default=True)
 
 
-    # @api.depends('date_of_purchase')
-    # def _compute_machine_age(self):
-    #     current_date=datetime.datetime.now().day
-    #     print(current_date)
-    #     demo=int(self.date_of_purchase)
-    #     print(demo)
-    #     age_machine=current_date-demo
-    #
-    #     self.machine_age=age_machine
+    @api.depends('date_of_purchase')
+    def _compute_machine_age(self):
+        current_date=datetime.datetime.now().day
+        print(current_date)
+        demo=self.date_of_purchase.day
+        print(type(demo))
+        print(type(current_date))
+        print(demo)
+        age_machine=current_date-demo
+        self.machine_age=age_machine
 
 
 
@@ -97,7 +98,6 @@ class machine_machine(models.Model):
                 rec.is_button_sts=True
 
             rec.case_count=case_count
-
 
 
 
@@ -166,7 +166,6 @@ class machine_machine(models.Model):
             'target': 'self',
             'context': {'default_machine_id': self.id,
                         'default_customer_id':self.customer_name_id.id,
-                        'default_consumed_parts_ids':self.product_ids.ids,
                         },
         }
 

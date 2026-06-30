@@ -79,14 +79,15 @@
                         <group>
                             <field name="serial_number"/>
                             <field name="date_of_purchase"/>
-<!--                            <field name="machine_age"/>-->
+                            <field name="machine_age"/>
                             <field name="quantity"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="purchase_value"/>
+                            <field name="active_machine"/>
+
                         </group>
 
                         <group>
-
                              <field name="customer_name_id" invisible="status == 'active'"/>
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>

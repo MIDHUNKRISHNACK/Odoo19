@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="machine_machine_invoice_view" model="ir.ui.view">
+            <field name="name">machine.machine.invoice.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//sheet" position="inside">-->
+<!--                    <field name="machine_id"/>-->
+<!--                </xpath>-->
+                <xpath expr="//page" position="before">
+
+                           <page string="Consumed Parts" name="consumed_parts">
+                                <field name="consumed_parts_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="part_quantity"/>
+                                    <field name="part_uom"/>
+
+                                </list>
+                                </field>
+
+                            </page>
+
+                </xpath>
+
+        </field>
+      </record>
+    </data>
+</odoo>

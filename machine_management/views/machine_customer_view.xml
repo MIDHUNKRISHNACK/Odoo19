@@ -7,13 +7,14 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@priority='2']" position="after">
+                <xpath expr="//div[@name='button_box']" position="inside">
                      <div class="oe_button_box" name="button_box">
                           <button class="oe_stat_button" type="object"
                             name="action_open_machine_list_view"
                             icon="fa-usd" >
                               <div class="o_stat_info">
-                            <span class="o_stat_text">Machines</span>
+                                  <field name="machine_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
+                                  <span class="o_stat_text">Machines</span>
                               </div>
                         </button>
                     </div>
