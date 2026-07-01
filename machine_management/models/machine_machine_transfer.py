@@ -55,7 +55,6 @@ class machine_machine_transfer(models.Model):
             # print("link = ",rec.alternate_machine_ids.ids)
 
 
-
     def button_transfer(self):
         """Function For Actions that performing while clicking the transfer button"""
         for rec in self:
@@ -67,8 +66,6 @@ class machine_machine_transfer(models.Model):
                 rec.write({"is_ribbon":True})
 
                 rec.machine_name_id.write({'status':'inservice'})
-
-
 
 
 

@@ -12,7 +12,7 @@ class machine_machine(models.Model):
 
 
     customer_name_id=fields.Many2one('res.partner',string="Customer Name",readonly=True)
-    date_of_purchase=fields.Datetime(string="Date Of Purchase",required=True,help="Enter the date of purchase")
+    date_of_purchase=fields.Date(string="Date Of Purchase",required=True,help="Enter the date of purchase")
     quantity=fields.Integer(string="Quantity",required=True,help="Enter the quantity of purchase")
     company_id = fields.Many2one('res.company', store=True, copy=False,
                                  string="Company",
@@ -35,20 +35,21 @@ class machine_machine(models.Model):
     machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products",store=True)
     case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
-    machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+    # machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
     active_machine=fields.Boolean(default=True)
 
 
-    @api.depends('date_of_purchase')
-    def _compute_machine_age(self):
-        current_date=datetime.datetime.now().day
-        print(current_date)
-        demo=self.date_of_purchase.day
-        print(type(demo))
-        print(type(current_date))
-        print(demo)
-        age_machine=current_date-demo
-        self.machine_age=age_machine
+    # @api.depends('date_of_purchase')
+    # def _compute_machine_age(self):
+    #     current_date=fields.Date.today().day
+    #     print(current_date)
+    #     purchase=self.date_of_purchase
+    #     demo=purchase.day
+    #     print(type(demo))
+    #     print(type(current_date))
+    #     print(demo)
+    #     age_machine=current_date-demo
+    #     self.machine_age=age_machine
 
 
 
