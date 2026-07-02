@@ -12,7 +12,7 @@ class machine_machine_transfer(models.Model):
 
     machine_name_id=fields.Many2one('machine.machine',string="Machine Name",ondelete='restrict')
     serial_number_id=fields.Char(string='SerialNumber',related="machine_name_id.serial_number")
-    transfer_date=fields.Datetime(string="Transfer Date")
+    transfer_date=fields.Date(string="Transfer Date")
     transfer_type=fields.Selection([('install','Install'),('remove','Remove')],string="Transfer Type",default='install')
     customer_name_id=fields.Many2one('res.partner',string="Customer Name")
     transfer_id=fields.Char(string="Transfer")
@@ -23,8 +23,6 @@ class machine_machine_transfer(models.Model):
     machine_name_test=fields.Many2one('machine.machine',string="Machine Name")
     transfer_type_test=fields.Selection([('install','Install'),('remove','Remove')],string="Transfer Type",default='install')
     alternate_machine_ids=fields.Many2many('machine.machine','machine_alt_rel',compute='_compute_alternate_machine_ids')
-
-
 
     @api.onchange('transfer_type_test')
     def _compute_alternate_machine_ids(self):
@@ -46,7 +44,6 @@ class machine_machine_transfer(models.Model):
             rec.update({
                 'alternate_machine_ids': [(fields.Command.set(machine.ids))]
             })
-
 
             # rec.update({
             #     'alternate_machine_ids': [(fields.Command.link(67))]

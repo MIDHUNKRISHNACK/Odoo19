@@ -10,6 +10,7 @@ class MachineMachineService(models.Model):
     _name = "machine.machine.service"
     _description="Machine Service"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = "machine_id"
 
 
     machine_id=fields.Many2one("machine.machine",string="Machine")
@@ -31,17 +32,6 @@ class MachineMachineService(models.Model):
             'consumed_parts_ids': [(fields.Command.set(parts.ids))]
         })
 
-       # machine_parts = []
-       # machine_parts.append(Command.create({
-       #  'product_id': self.machine_id.product_ids,
-       #  'part_quantity': self.machine_id.product_ids.part_quantity,
-       #  'part_price': self.machine_id.product_ids.part_price,
-       #  'part_uom': self.machine_id.product_ids.part_uom,
-       #  }))
-       #
-       # self.update({'consumed_parts_ids':machine_parts})
-       #
-       # return machine_parts
 
     def  button_case_start(self):
         for rec in self:
@@ -56,26 +46,29 @@ class MachineMachineService(models.Model):
 
 
     def machine_invoice(self):
-
-        for rec in self:
-            invoice_draft=self.env['account.move'].search([
+       res_id=0
+       for rec in self:
+            invoice=self.env['account.move'].search([
                     ('partner_id', '=', self.customer_id.id),
                     ('state', '=', 'draft'),], limit=1,)
-            print(invoice_draft.id)
-            if invoice_draft:
-                for rec in self.consumed_parts_ids:
+            print("invoice",invoice.id)
+            res_id += invoice.id
+            if invoice:
+                for record in self.consumed_parts_ids:
                     new_invoice_lines = []
                     new_invoice_lines.append(Command.create({
-                           'product_id': rec.product_id.id,
-                           'quantity': rec.part_quantity,
-                           'price_unit': rec.part_price,
+                           'product_id': record.product_id.id,
+                           'quantity': record.part_quantity,
+                           'price_unit': record.part_price,
                             }))
-                    print(new_invoice_lines)
-                    self.env['account.move'].update({
-                        'invoice_line_ids':[(fields.Command.set(new_invoice_lines))]
+                    print("new invoice lines = ",new_invoice_lines)
+                    print("result=", record.product_id.id)
+                    print("result=", record.product_id)
+                    invoice.update({
+                        'invoice_line_ids':new_invoice_lines
                     })
 
-
+                    print("resid=",res_id)
             else:
              print("1",rec.customer_id)
              print("2",rec.customer_id.id)
@@ -85,13 +78,13 @@ class MachineMachineService(models.Model):
              invoice_lines = []
              for record in self:
                  for rec in record.consumed_parts_ids:
-                     invoice_lines.append(Command.create({
-                         'product_id': rec.product_id.id,
+                   invoice_lines.append(Command.create({
+                       'product_id': rec.product_id.id,
                          'quantity': rec.part_quantity,
                          'price_unit': rec.part_price,
                      }))
 
-             abc=rec.env['account.move'].create({
+             invoice=rec.env['account.move'].create({
                   'move_type': 'out_invoice',
                   'partner_id': self.customer_id.id,
                   'invoice_date':self.date_of_service,
@@ -99,22 +92,36 @@ class MachineMachineService(models.Model):
                   'invoice_date_due': (self.date_of_service + timedelta(days=10)),
 
              })
-             service_charge=[]
-             service_charge.append(Command.create({
-                'name':'Extra Service Charge',
-                'quantity':1,
-                'price_unit':250
-             }))
-             abc.write({'invoice_line_ids':service_charge})
 
-             return {
+             print("invoice",invoice)
+             service_product=self.env['product.product'].search([
+                 ('name','=','Extra service charge'),
+                 ('list_price','=',250)
+
+             ])
+             print("service_product",service_product.id)
+
+             service_charge=[]
+
+             service_charge.append(Command.create({
+                'product_id':service_product.id,
+                'quantity':1,
+                'price_unit':service_product.list_price
+             }))
+             invoice.write({'invoice_line_ids':service_charge})
+             res_id+=invoice.id
+
+
+       return {
             'type': 'ir.actions.act_window',
             'name': 'machine_invoice_redirect',
             'res_model': 'account.move',
-             'res_id': abc.id,
-             'view_mode': 'form',
-             'target': 'self',
+            'res_id': res_id,
+            'view_mode': 'form',
+            'target': 'self',
              }
+
+
 
 
 

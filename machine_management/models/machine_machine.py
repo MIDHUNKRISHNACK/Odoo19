@@ -35,21 +35,25 @@ class machine_machine(models.Model):
     machine_tag_ids=fields.Many2many('machine.machine.tags',string="Machine Tags")
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products",store=True)
     case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
-    # machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
-    active_machine=fields.Boolean(default=True)
+    machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
+    # active=fields.Boolean('Is Active' ,default=True)
 
 
-    # @api.depends('date_of_purchase')
-    # def _compute_machine_age(self):
-    #     current_date=fields.Date.today().day
-    #     print(current_date)
-    #     purchase=self.date_of_purchase
-    #     demo=purchase.day
-    #     print(type(demo))
-    #     print(type(current_date))
-    #     print(demo)
-    #     age_machine=current_date-demo
-    #     self.machine_age=age_machine
+    @api.depends('date_of_purchase')
+    def _compute_machine_age(self):
+        current_date=fields.Date.today()
+        print(current_date)
+        purchase=self.date_of_purchase
+        print(type(current_date))
+        print(type(purchase))
+        print("Purcggvbeghyte",purchase)
+
+        if purchase==True:
+            age_machine=current_date-purchase
+            self.machine_age=age_machine
+        else:
+            return self.machine_age
+
 
 
 

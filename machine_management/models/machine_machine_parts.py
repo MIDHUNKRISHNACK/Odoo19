@@ -6,7 +6,7 @@ class machine_machine_parts(models.Model):
 
     model_name_id = fields.Many2one('machine.machine', string="Machine Products")
     machine_name_id=fields.Many2one('machine.machine.service',string="Machine Service")
-    product_id= fields.Many2one('product.template', string="Machine Parts")
+    product_id= fields.Many2one('product.product', string="Machine Parts")
     part_name= fields.Char(string="Machine Parts",related='product_id.display_name')
     part_price= fields.Float(string="Machine Parts Price",related='product_id.list_price')
     part_quantity= fields.Float(string="Quantity")
