@@ -10,7 +10,6 @@ class machine_machine(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'machine_name'
 
-
     customer_name_id=fields.Many2one('res.partner',string="Customer Name",readonly=True)
     date_of_purchase=fields.Date(string="Date Of Purchase",required=True,help="Enter the date of purchase")
     quantity=fields.Integer(string="Quantity",required=True,help="Enter the quantity of purchase")
@@ -19,9 +18,8 @@ class machine_machine(models.Model):
                                  default=lambda self: self.env.user.company_id.id)
     currency_id = fields.Many2one('res.currency', string="Currency",
                                   related="company_id.currency_id")
-
     purchase_value = fields.Monetary(string="Purchase Value")
-    machine_name = fields.Char( required=True,help="Enter the name of the machine",tracking=True)
+    machine_name= fields.Char( required=True,help="Enter the name of the machine",tracking=True)
     description=fields.Char(string="Description",required=True,help="Enter the description of the machine")
     is_warrenty=fields.Boolean(string="warrenty",help="Warrenty status",default=False)
     status=fields.Selection([('active','Active'),('inservice','Inservice')],default='active',tracking=True,help="Select the status of machine")
@@ -36,25 +34,27 @@ class machine_machine(models.Model):
     product_ids=fields.One2many('machine.machine.products','model_name_id',string="Machine Products",store=True)
     case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
     machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
-    # active=fields.Boolean('Is Active' ,default=True)
+    active=fields.Boolean('Is Active' ,default=True)
 
 
     @api.depends('date_of_purchase')
     def _compute_machine_age(self):
+        """Function to calculate machine age"""
         current_date=fields.Date.today()
         print(current_date)
-        purchase=self.date_of_purchase
-        print(type(current_date))
-        print(type(purchase))
-        print("Purcggvbeghyte",purchase)
+        for rec in self:
+         purchase=rec.date_of_purchase
+         print(type(current_date))
+         print(type(purchase))
+         print("Purcggvbeghyte",purchase)
 
-        if purchase==True:
-            age_machine=current_date-purchase
-            self.machine_age=age_machine
-        else:
-            return self.machine_age
-
-
+         if purchase:
+            rec.machine_age=(current_date-purchase).days
+            print('machine_age_old=',(current_date-purchase))
+            print('machine_age=',rec.machine_age)
+         else:
+            rec.machine_age=0
+            print('machine_age=', rec.machine_age)
 
 
     # @api.ondelete(at_uninstall=True)
@@ -170,7 +170,7 @@ class machine_machine(models.Model):
             'view_mode': 'form',
             'target': 'self',
             'context': {'default_machine_id': self.id,
-                        'default_customer_id':self.customer_name_id.id,
+                        'default_customer_id':self.customer_name_id.id
                         },
         }
 

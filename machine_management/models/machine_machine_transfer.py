@@ -24,6 +24,7 @@ class machine_machine_transfer(models.Model):
     transfer_type_test=fields.Selection([('install','Install'),('remove','Remove')],string="Transfer Type",default='install')
     alternate_machine_ids=fields.Many2many('machine.machine','machine_alt_rel',compute='_compute_alternate_machine_ids')
 
+
     @api.onchange('transfer_type_test')
     def _compute_alternate_machine_ids(self):
         """Function For Dynamic domain """
@@ -59,11 +60,10 @@ class machine_machine_transfer(models.Model):
                 print("rec", rec)
                 print("new", rec.machine_name_id)
 
-                rec.machine_name_id.write({'customer_name_id': rec.customer_name_id.id, })
+                rec.machine_name_id.write({'customer_name_id': rec.customer_name_id.id,})
                 rec.write({"is_ribbon":True})
 
                 rec.machine_name_id.write({'status':'inservice'})
-
 
 
     @api.depends("transfer_type")

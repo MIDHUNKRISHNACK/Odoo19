@@ -10,7 +10,6 @@
              "data/machine_machine_tags.xml",
              "data/machine_sequence.xml",
             "data/machine_machine_types.xml",
-             # "views/machine_invoice_view.xml",
              "views/machine_customer_view.xml",
              "views/machine_service_views.xml",
             "views/machine_machine_tags.xml",

@@ -20,6 +20,18 @@
                     </div>
 
                 </xpath>
+                <xpath expr="//notebook" position="inside">
+                     <page string="Related Machine List " name="machine_list">
+                                <field name="machine_ids">
+                                <list editable="bottom">
+                                    <field name="machine_name"/>
+
+                                </list>
+                                </field>
+
+                            </page>
+                </xpath>
+
 
         </field>
 </record>

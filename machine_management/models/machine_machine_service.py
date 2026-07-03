@@ -13,6 +13,7 @@ class MachineMachineService(models.Model):
     _rec_name = "machine_id"
 
 
+
     machine_id=fields.Many2one("machine.machine",string="Machine")
     customer_id=fields.Many2one("res.partner",string="Customer")
     date_of_service=fields.Datetime(string="Date")
@@ -22,10 +23,17 @@ class MachineMachineService(models.Model):
     company_id=fields.Many2one("res.company",string="Company",store=True,default=lambda self: self.env.user.company_id.id)
     consumed_parts_ids=fields.One2many('machine.machine.products','machine_name_id',string="Parts",compute="_consumed_parts")
     is_case_status=fields.Boolean(string="Is Case Status",default=False)
+    is_ribbon_status=fields.Boolean(string="Is Ribbon", default=False)
     tech_person_id=fields.Many2one("res.users",string="Tech Person")
+    res_id=fields.Integer(string="Res ID")
+    is_ribbon_draft=fields.Boolean(string="Is Ribbon Draft",default=False)
+    is_ribbon_paid=fields.Boolean(string="Is Ribbon Paid",default=False)
+
+
 
     @api.depends('machine_id')
     def _consumed_parts(self):
+        """Function for getting the consumed parts in orderline"""
         print(self.machine_id.product_ids)
         parts = self.machine_id.product_ids
         self.update({
@@ -34,25 +42,28 @@ class MachineMachineService(models.Model):
 
 
     def  button_case_start(self):
+        """Function for changing service state into started state while clicking start button"""
         for rec in self:
-            rec.write({"is_case_status":True})
             rec.write({"service_state":"started"})
 
 
     def button_case_close(self):
+        """Function for changing service state into done state while clicking close button"""
         for rec in self:
-            rec.write({"is_case_status":False})
+            rec.write({"is_case_status":True})
             rec.write({"service_state": "done"})
 
 
     def machine_invoice(self):
-       res_id=0
+       """function for creating  the invoice for the parts that choosen in service model"""
+       self.res_id=0
        for rec in self:
+            rec.write({'is_ribbon_status':True})
             invoice=self.env['account.move'].search([
                     ('partner_id', '=', self.customer_id.id),
                     ('state', '=', 'draft'),], limit=1,)
             print("invoice",invoice.id)
-            res_id += invoice.id
+            rec.res_id += invoice.id
             if invoice:
                 for record in self.consumed_parts_ids:
                     new_invoice_lines = []
@@ -68,7 +79,7 @@ class MachineMachineService(models.Model):
                         'invoice_line_ids':new_invoice_lines
                     })
 
-                    print("resid=",res_id)
+
             else:
              print("1",rec.customer_id)
              print("2",rec.customer_id.id)
@@ -86,6 +97,7 @@ class MachineMachineService(models.Model):
 
              invoice=rec.env['account.move'].create({
                   'move_type': 'out_invoice',
+                  'machine_service_id': self.id,
                   'partner_id': self.customer_id.id,
                   'invoice_date':self.date_of_service,
                   'invoice_line_ids':invoice_lines,
@@ -94,11 +106,8 @@ class MachineMachineService(models.Model):
              })
 
              print("invoice",invoice)
-             service_product=self.env['product.product'].search([
-                 ('name','=','Extra service charge'),
-                 ('list_price','=',250)
-
-             ])
+             service_product=self.env.ref('machine_management.service_product')
+             print("service_product", service_product)
              print("service_product",service_product.id)
 
              service_charge=[]
@@ -109,14 +118,14 @@ class MachineMachineService(models.Model):
                 'price_unit':service_product.list_price
              }))
              invoice.write({'invoice_line_ids':service_charge})
-             res_id+=invoice.id
+             self.res_id=invoice.id
 
-
-       return {
+    def action_open_invoice(self):
+           return {
             'type': 'ir.actions.act_window',
             'name': 'machine_invoice_redirect',
             'res_model': 'account.move',
-            'res_id': res_id,
+            'res_id': self.res_id,
             'view_mode': 'form',
             'target': 'self',
              }
