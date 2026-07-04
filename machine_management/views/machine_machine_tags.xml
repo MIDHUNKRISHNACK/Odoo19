@@ -28,7 +28,6 @@
     </record>
 
 
-
 <!--    default-->
     <record id="machine_tags_actions" model="ir.actions.act_window">
         <field name="name">Machine tags</field>

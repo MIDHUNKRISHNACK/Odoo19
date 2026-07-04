@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
 <!--    tree view-->
      <record model="ir.ui.view" id="machine_service_tree_views">
         <field name="name">machine.service.tree</field>
@@ -25,9 +24,9 @@
         <field name="arch" type="xml">
             <form delete="True">
                 <header>
-                    <button name="button_case_start" type="object" string="Start" class="oe_highlight" invisible="is_case_status == True"/>
-                    <button name="button_case_close" type="object" string="Close" class="oe_highlight"/>
-                     <button name="machine_invoice" type="object" string="Invoice" invisible="is_case_status == False" class="oe_highlight"/>
+                    <button name="button_case_start" type="object" string="Start" class="oe_highlight" invisible="is_case_status"/>
+                    <button name="button_case_close" type="object" string="Close" class="oe_highlight" invisible=" not is_case_status or is_invoice_status"/>
+                     <button name="machine_invoice" type="object" string="Invoice" invisible="not is_invoice_status or is_ribbon_status" class="oe_highlight"/>
                      <field name="service_state" widget="statusbar" options="{'clickable':1}"/>
                 </header>
                 <sheet>
@@ -40,9 +39,9 @@
                               </div>
                         </button>
                     </div>
-                    <widget name="web_ribbon" text="Invoiced" bg_color="text-bg-danger" invisible="not is_ribbon_status"/>
-                    <widget name="web_ribbon" text="Draft" bg_color="text-bg-danger" invisible="not is_ribbon_draft"/>
-                    <widget name="web_ribbon" text="Paid" bg_color="text-bg-danger" invisible="not is_ribbon_paid"/>
+                    <widget name="web_ribbon" text="Draft" bg_color="text-bg-danger" invisible="not is_ribbon_status"/>
+                    <widget name="web_ribbon" text="Post" bg_color="text-bg-danger" invisible="not is_ribbon_draft"/>
+                    <widget name="web_ribbon" text="Paid" bg_color="text-bg-danger" invisible="not is_ribbon_post"/>
                     <div class="oe_title">
                         <h1>
                             <field name="machine_id" />
@@ -55,9 +54,7 @@
                         </group>
 
                         <group>
-                            <field name="is_ribbon_draft"/>
-                            <field name="is_ribbon_paid"/>
-                             <field name="company_id"/>
+                            <field name="company_id"/>
                             <field name="tech_person_id"/>
 
                         </group>

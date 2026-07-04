@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from addons.web.controllers import domain
 from odoo import models,fields,api,_
 from odoo.orm import commands
 from odoo.orm.commands import Command
@@ -11,8 +12,6 @@ class MachineMachineService(models.Model):
     _description="Machine Service"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = "machine_id"
-
-
 
     machine_id=fields.Many2one("machine.machine",string="Machine")
     customer_id=fields.Many2one("res.partner",string="Customer")
@@ -26,9 +25,9 @@ class MachineMachineService(models.Model):
     is_ribbon_status=fields.Boolean(string="Is Ribbon", default=False)
     tech_person_id=fields.Many2one("res.users",string="Tech Person")
     res_id=fields.Integer(string="Res ID")
+    is_invoice_status=fields.Boolean(string="Is Invoice Status",default=False)
     is_ribbon_draft=fields.Boolean(string="Is Ribbon Draft",default=False)
-    is_ribbon_paid=fields.Boolean(string="Is Ribbon Paid",default=False)
-
+    is_ribbon_post=fields.Boolean(string="Is Ribbon post",default=False)
 
 
     @api.depends('machine_id')
@@ -45,12 +44,13 @@ class MachineMachineService(models.Model):
         """Function for changing service state into started state while clicking start button"""
         for rec in self:
             rec.write({"service_state":"started"})
+            rec.write({"is_case_status": True})
 
 
     def button_case_close(self):
         """Function for changing service state into done state while clicking close button"""
         for rec in self:
-            rec.write({"is_case_status":True})
+            rec.write({"is_invoice_status":True})
             rec.write({"service_state": "done"})
 
 

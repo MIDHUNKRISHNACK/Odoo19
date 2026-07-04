@@ -105,7 +105,6 @@ class machine_machine(models.Model):
             rec.case_count=case_count
 
 
-
     @api.constrains('purchase_value')
     def _check_purchase_value(self):
         """ Function to validate purchase value , less than or equal to zero"""

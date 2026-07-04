@@ -5,6 +5,7 @@ class AccountMove(models.Model):
 
 
     machine_service_id=fields.Many2one('machine.machine.service',string="Machine Service")
+    ribbon_paid=fields.Boolean(string="Ribon Paid",compute="_compute_ribbon_paid")
 
 
     def action_post(self):
@@ -14,9 +15,14 @@ class AccountMove(models.Model):
       print("result=",(self.machine_service_id.is_ribbon_draft))
       return res
 
-
-    def action_create_payments(self):
+    def action_register_payment(self):
         res=super().action_register_payment()
-        self.machine_service_id.write({'is_ribbon_paid':True})
-        print("result2=",(self.machine_service_id.is_ribbon_paid))
+        self.machine_service_id.write({'is_ribbon_post':True})
+        print("result2=",(self.machine_service_id.is_ribbon_post))
         return res
+
+
+
+
+
+

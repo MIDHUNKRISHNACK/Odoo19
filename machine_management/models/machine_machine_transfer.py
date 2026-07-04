@@ -46,11 +46,6 @@ class machine_machine_transfer(models.Model):
                 'alternate_machine_ids': [(fields.Command.set(machine.ids))]
             })
 
-            # rec.update({
-            #     'alternate_machine_ids': [(fields.Command.link(67))]
-            #
-            # })
-            # print("link = ",rec.alternate_machine_ids.ids)
 
 
     def button_transfer(self):
