@@ -35,6 +35,26 @@ class machine_machine(models.Model):
     case_count=fields.Integer(string="Case Count",compute="_compute_case_count")
     machine_age=fields.Integer(string="Machine Age",compute="_compute_machine_age",readonly=True)
     active=fields.Boolean('Is Active' ,default=True)
+    demo_data=fields.Boolean('Demo Data',invisible=True,default=True)
+    machine_transfer_ids=fields.One2many('machine.machine.transfer','machine_name_id',string="transfer list")
+    machine_service_ids=fields.One2many('machine.machine.service','machine_id',string='case list')
+
+    def action_archive(self):
+        """Function to archive the machine list related to this partner"""
+        open_case=self.machine_service_ids.search_count([('service_state', '=', 'open')])
+        print("service_list",self.machine_service_ids)
+        print("opencase_count",open_case)
+        if self.status=='inservice' and open_case==0 :
+         res = super().action_archive()
+         print("returned machine list =", self.machine_transfer_ids)
+         print("returned machine list =", self.machine_transfer_ids.ids)
+         for rec in self:
+            machine_list = rec.machine_transfer_ids
+            machine_list.action_archive()
+        else:
+            raise ValidationError("There is one service is already assigned")
+
+        return res
 
 
     @api.depends('date_of_purchase')

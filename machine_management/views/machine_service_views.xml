@@ -56,6 +56,8 @@
                         <group>
                             <field name="company_id"/>
                             <field name="tech_person_id"/>
+                            <field name="last_service_date"/>
+                            <field name="service_frequency"/>
 
                         </group>
                     </group>

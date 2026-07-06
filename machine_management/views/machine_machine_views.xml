@@ -83,7 +83,8 @@
                             <field name="quantity"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="purchase_value"/>
-
+                            <field name="demo_data" invisible="True"/>
+                            <field name="active" invisible="True"/>
 
                         </group>
 
@@ -92,6 +93,7 @@
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>
                             <field name="machine_tag_ids" widget="many2many_tags" options="{'color_field': 'machine_tags_color'}"/>
+
 
                         </group>
                     </group>

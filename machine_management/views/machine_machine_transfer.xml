@@ -42,6 +42,7 @@
                             <field name="customer_name_id" invisible="transfer_type =='remove'"/>
                             <field name="company_id"/>
                             <field name="transfer_type" />
+
                         </group>
                     </group>
                      <group>

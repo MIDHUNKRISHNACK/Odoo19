@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="machine_service_frequency_weekly" model="machine.machine.service.frequency">
+        <field name="machine_service_frequency">Weekly</field>
+   </record>
+    <record id="machine_service_frequency_monthly" model="machine.machine.service.frequency">
+        <field name="machine_service_frequency">Monthly</field>
+   </record>
+    <record id="machine_service_frequency_yearly" model="machine.machine.service.frequency">
+        <field name="machine_service_frequency">Yearly</field>
+   </record>
+
+</odoo>

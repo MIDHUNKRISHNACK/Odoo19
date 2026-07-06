@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_template_machine" model="mail.template">
+        <field name="name">Service Done Confirmation</field>
+        <field name="model_id" ref="machine_management.model_machine_machine_service"/>
+<!--        <field name="use_default_to" eval="True"/>-->
+        <field name="subject">Machine Service is Completed-{{object.machine_id}}</field>
+        <field name="partner_to">{{object.customer_id.id}}</field>
+        <field name="body_html" type="html">
+                <div>
+                    <p>
+                        Hello <t t-out="object.customer_id.name"/>,
+                        <br/>
+                        <br/>
+                        Your <t t-out="object.machine_id.machine_name" /> Service is Completed .... You Can Come and Collect it from Center . Details Of Servicing is Listed Below .
+                        <br/>
+                        <br/>
+                         <table border="1" cellpadding="0" cellspacing="0" width="590" style="background-color: white; border-collapse:separate;">
+                            <tr>
+                            <th colspan="4">Machine Name = <t t-out="object.machine_id.machine_name" /></th>
+                            </tr>
+                            <tr>
+                            <th colspan="4">Customer Name = <t t-out="object.customer_id.name" /></th>
+                            </tr>
+                               <tr>
+                               <th> Parts Name </th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>UOM </th>
+                            </tr>
+                             <t t-foreach="object.consumed_parts_ids" t-as="machine">
+                                 <div>
+                                     <tr>
+                                         <td><span t-out="machine.part_name"/></td>
+                                         <td><span t-out="machine.part_quantity"/></td>
+                                         <td><span t-out="machine.part_price"/></td>
+                                         <td><span t-out="machine.part_uom"/></td>
+                                     </tr>
+
+                                 </div>
+                             </t>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                            <a href="http://localhost:8019/odoo/action-348/{{object.id}}" target="_blank" class="btn btn-primary me-1">Click</a>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        Thank you For Choosing Us ....
+                        <br/>
+                        <t t-out="user.name"/>
+                    </p>
+                </div>
+            </field>
+
+    </record>
+</odoo>

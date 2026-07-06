@@ -23,6 +23,7 @@ class machine_machine_transfer(models.Model):
     machine_name_test=fields.Many2one('machine.machine',string="Machine Name")
     transfer_type_test=fields.Selection([('install','Install'),('remove','Remove')],string="Transfer Type",default='install')
     alternate_machine_ids=fields.Many2many('machine.machine','machine_alt_rel',compute='_compute_alternate_machine_ids')
+    active=fields.Boolean(string="Is Active",default=True)
 
 
     @api.onchange('transfer_type_test')

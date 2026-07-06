@@ -1,7 +1,7 @@
-from datetime import timedelta
+from dateutil.rrule import YEARLY
 
-from addons.web.controllers import domain
 from odoo import models,fields,api,_
+from datetime import timedelta
 from odoo.orm import commands
 from odoo.orm.commands import Command
 from odoo.orm.fields_temporal import Date
@@ -28,6 +28,21 @@ class MachineMachineService(models.Model):
     is_invoice_status=fields.Boolean(string="Is Invoice Status",default=False)
     is_ribbon_draft=fields.Boolean(string="Is Ribbon Draft",default=False)
     is_ribbon_post=fields.Boolean(string="Is Ribbon post",default=False)
+    last_service_date= fields.Date(string="Last Service Date", compute="compute_last_service_date")
+    service_frequency= fields.Selection([('weekly','Weekly'),('monthly','Monthly'),('yearly','YEARLY')],string="Service Frequency")
+
+
+
+
+
+    @api.depends('date_of_service')
+    def compute_last_service_date(self):
+        for rec in self:
+            a=rec.sorted(lambda record: record.date_of_service.id,reverse=True)
+            print("sorted=",a)
+            print("first=",a[:1])
+            rec.last_service_date = a[:1].date_of_service
+
 
 
     @api.depends('machine_id')
@@ -52,6 +67,9 @@ class MachineMachineService(models.Model):
         for rec in self:
             rec.write({"is_invoice_status":True})
             rec.write({"service_state": "done"})
+            template = self.env.ref('machine_management.mail_template_machine')
+            email_values = {'email_from': self.env.user.email}
+            template.send_mail(self.id, force_send=True, email_values=email_values)
 
 
     def machine_invoice(self):
