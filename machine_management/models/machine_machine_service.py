@@ -18,7 +18,7 @@ class MachineMachineService(models.Model):
     date_of_service=fields.Datetime(string="Date")
     service_description=fields.Char(string="Description")
     internal_note=fields.Html(string="Internal Note")
-    service_state=fields.Selection([('open','Open'),('started','Started'),('done','Done'),('cancel','Cancel')])
+    service_state=fields.Selection([('open','Open'),('started','Started'),('done','Done'),('cancel','Cancel')] ,default='open')
     company_id=fields.Many2one("res.company",string="Company",store=True,default=lambda self: self.env.user.company_id.id)
     consumed_parts_ids=fields.One2many('machine.machine.products','machine_name_id',string="Parts",compute="_consumed_parts")
     is_case_status=fields.Boolean(string="Is Case Status",default=False)
@@ -29,8 +29,6 @@ class MachineMachineService(models.Model):
     is_ribbon_draft=fields.Boolean(string="Is Ribbon Draft",default=False)
     is_ribbon_post=fields.Boolean(string="Is Ribbon post",default=False)
     last_service_date= fields.Date(string="Last Service Date", compute="compute_last_service_date")
-    service_frequency= fields.Selection([('weekly','Weekly'),('monthly','Monthly'),('yearly','YEARLY')],string="Service Frequency")
-
 
 
 

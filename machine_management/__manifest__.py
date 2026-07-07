@@ -11,6 +11,7 @@
              "data/machine_sequence.xml",
             "data/machine_machine_types.xml",
              "data/mail_template_machine.xml",
+             "data/ir_cron_data.xml",
              # "data/machine_machine_service_frequency.xml",
              "views/machine_customer_view.xml",
              "views/machine_service_views.xml",

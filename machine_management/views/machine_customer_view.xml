@@ -25,7 +25,6 @@
                                 <field name="machine_ids">
                                 <list editable="bottom">
                                     <field name="machine_name"/>
-
                                 </list>
                                 </field>
 

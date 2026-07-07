@@ -6,4 +6,4 @@ from . import machine_machine_parts
 from . import res_partner
 from . import machine_machine_service
 from . import account_move
-# from . import machine_machine_service_frequency
+from . import machine_machine_service_frequency

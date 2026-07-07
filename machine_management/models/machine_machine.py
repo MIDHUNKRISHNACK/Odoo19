@@ -1,5 +1,3 @@
-from email.policy import default
-
 from odoo import models,fields,api,_
 from odoo.exceptions import ValidationError
 import datetime
@@ -38,6 +36,99 @@ class machine_machine(models.Model):
     demo_data=fields.Boolean('Demo Data',invisible=True,default=True)
     machine_transfer_ids=fields.One2many('machine.machine.transfer','machine_name_id',string="transfer list")
     machine_service_ids=fields.One2many('machine.machine.service','machine_id',string='case list')
+    service_frequency = fields.Selection([('weekly', 'Weekly'), ('monthly', 'Monthly'), ('yearly', 'YEARLY')],string="Service Frequency")
+    next_service_date= fields.Date(string="Next Service Date",compute="_compute_next_service_date")
+
+
+
+
+    @api.depends('service_frequency')
+    def _compute_next_service_date(self):
+        if self.service_frequency == 'weekly':
+            self.next_service_date= self.date_of_purchase + datetime.timedelta(weeks=1)
+        elif self.service_frequency == 'monthly':
+            self.next_service_date= self.date_of_purchase + datetime.timedelta(30)
+        elif self.service_frequency == 'yearly':
+            self.next_service_date= self.date_of_purchase + datetime.timedelta(365)
+        else:
+            self.next_service_date= self.date_of_purchase
+
+
+
+
+    def action_cron_test_method(self):
+          date_now=fields.Date.today()
+          machine_list = self.env['machine.machine'].search([('status','=','inservice')])
+
+          print(date_now)
+          print("total machine list",machine_list)
+          for rec in machine_list:
+            service_list=rec.machine_service_ids.search([('service_state','!=','open')])
+            len_service_list=len(service_list)
+            if len_service_list==0:
+                self.env['machine.machine.service'].create({
+                    'machine_id': rec.id,
+                    # 'date_of_service': rec.next_service_date
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #     machine_list = self.env['machine.machine.service'].search([])
+    #     # print('value of self=', self)
+        # machine_name = self.env['machine.machine'].search([])
+        #
+        # sorted_list = machine_name.sorted(lambda record: record.status=='inservice', reverse=True)
+        # record_id = sorted_list[0]
+        # service_list =record_id.machine_service_ids.search_count([('service_state', '=', 'open')])
+        # print('rec=', record_id)
+        # print('recids',record_id.machine_service_ids)
+        # print(machine_name)
+        # print(sorted_list)
+        # if self.service_frequency=='weekly':
+        #
+        #     self.write({
+        #         'next_service_date': record_id.date_of_purchase + datetime.timedelta(7),
+        #     })
+        #     print('value of next date=', record_id.next_service_date)
+        # elif self.service_frequency=='monthly':
+        #
+        #     self.write({
+        #         'next_service_date': record_id.date_of_purchase + datetime.timedelta(30),
+        #     })
+        #     print('value of next date=', record_id.next_service_date)
+        # else:
+        #     self.write({
+        #         'next_service_date': record_id.date_of_purchase,
+        #     })
+        #
+        #
+        # print('name=',record_id.machine_name)
+        # print("next date=", record_id.next_service_date)
+        # print("service_list",service_list)
+        # print("state=",record_id.status)
+        # print("state value=",record_id.status=='inservice')
+        #
+        # if service_list==0 and record_id.status=='inservice':
+        #      self.env['machine.machine.service'].create({
+        #         'machine_id':record_id.id,
+        #         'date_of_service':record_id.next_service_date,
+        #      })
+
+
+
+
+
+
 
     def action_archive(self):
         """Function to archive the machine list related to this partner"""
@@ -52,9 +143,24 @@ class machine_machine(models.Model):
             machine_list = rec.machine_transfer_ids
             machine_list.action_archive()
         else:
-            raise ValidationError("There is one service is already assigned")
+           return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'danger',
+                    'sticky': False,
+                    'message': _("Already One case is Open Stage!"),
+                     'next': self.change_case_state(),
+                }
+            }
+
 
         return res
+
+    def change_case_state(self):
+        self.machine_service_ids.write({
+            'service_state':'cancel'
+        })
 
 
     @api.depends('date_of_purchase')

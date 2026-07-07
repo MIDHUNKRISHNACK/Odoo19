@@ -44,9 +44,7 @@
                         <br/>
                         <br/>
                         <br/>
-
-                            <a href="http://localhost:8019/odoo/action-348/{{object.id}}" target="_blank" class="btn btn-primary me-1">Click</a>
-
+                         <a t-attf-href="/web#id={{object.id}}" model="machine_machine_service" view_type="form" >Click here</a>
                         <br/>
                         <br/>
                         <br/>

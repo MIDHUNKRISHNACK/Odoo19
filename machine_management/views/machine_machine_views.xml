@@ -11,6 +11,7 @@
             <field name="customer_name_id"/>
             <filter name="filter_status_active" string="Active Status " domain="[('status','=','active')]" />
             <filter name="filter_status_inservice" string="Inservice Status " domain="[('status','=','inservice')]" />
+           <filter name="filter_status_archieve" string="Archieved" domain="[('active','=',False)]"/>
              <group name="group_filters">
                  <filter string="Employee" name="employee" context="{'group_by': 'customer_name_id'}"/>
              </group>
@@ -93,6 +94,8 @@
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>
                             <field name="machine_tag_ids" widget="many2many_tags" options="{'color_field': 'machine_tags_color'}"/>
+                            <field name="service_frequency"/>
+                            <field name="next_service_date" readonly="True"/>
 
 
                         </group>
