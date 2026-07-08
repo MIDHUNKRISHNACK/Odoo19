@@ -6,6 +6,7 @@
     'description': """Complete Solution for an Machines Management """,
     'depends': ['base','sale','mail','product'],
     'data': ["security/ir.model.access.csv",
+             "security/security_groups.xml",
              "data/service_product.xml",
              "data/machine_machine_tags.xml",
              "data/machine_sequence.xml",

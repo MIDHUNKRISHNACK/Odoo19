@@ -87,6 +87,7 @@
                             <field name="demo_data" invisible="True"/>
                             <field name="active" invisible="True"/>
 
+
                         </group>
 
                         <group>

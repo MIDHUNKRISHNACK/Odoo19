@@ -6,7 +6,10 @@
         <field name="name">machine.service.tree</field>
         <field name="model">machine.machine.service</field>
         <field name="arch" type="xml">
-              <list >
+              <list decoration-danger="service_state =='cancel'"
+                    decoration-info="service_state =='open'"
+                    decoration-success="service_state =='done'"
+                    decoration-warning="service_state =='started'">
                 <field name="machine_id"/>
                 <field name="customer_id"/>
                 <field name="date_of_service"/>
@@ -57,7 +60,7 @@
                         <group>
                             <field name="company_id"/>
                             <field name="tech_person_id"/>
-                            <field name="last_service_date"/>
+
 
 
                         </group>

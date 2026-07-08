@@ -1,6 +1,7 @@
 from odoo import models,fields,api,_
 from odoo.exceptions import ValidationError
 import datetime
+from odoo.orm.commands import Command
 
 class machine_machine(models.Model):
     _name = 'machine.machine'
@@ -37,12 +38,12 @@ class machine_machine(models.Model):
     machine_transfer_ids=fields.One2many('machine.machine.transfer','machine_name_id',string="transfer list")
     machine_service_ids=fields.One2many('machine.machine.service','machine_id',string='case list')
     service_frequency = fields.Selection([('weekly', 'Weekly'), ('monthly', 'Monthly'), ('yearly', 'YEARLY')],string="Service Frequency")
-    next_service_date= fields.Date(string="Next Service Date",compute="_compute_next_service_date")
+    next_service_date= fields.Date(string="Next Service Date",compute="_compute_next_service_date",store=True)
 
 
 
 
-    @api.depends('service_frequency')
+    @api.depends('service_frequency','date_of_purchase')
     def _compute_next_service_date(self):
         if self.service_frequency == 'weekly':
             self.next_service_date= self.date_of_purchase + datetime.timedelta(weeks=1)
@@ -55,78 +56,47 @@ class machine_machine(models.Model):
 
 
 
-
     def action_cron_test_method(self):
           date_now=fields.Date.today()
-          machine_list = self.env['machine.machine'].search([('status','=','inservice')])
-
           print(date_now)
-          print("total machine list",machine_list)
-          for rec in machine_list:
-            service_list=rec.machine_service_ids.search([('service_state','!=','open')])
-            len_service_list=len(service_list)
-            if len_service_list==0:
-                self.env['machine.machine.service'].create({
-                    'machine_id': rec.id,
-                    # 'date_of_service': rec.next_service_date
-                })
+          machine_list = self.env['machine.machine'].search([('status','=','inservice'),('next_service_date','=',fields.Date.today())])
+          print(machine_list)
+          for machine in machine_list:
+              service_list=machine.machine_service_ids
+              print(service_list)
+              open_case=service_list.filtered(lambda case: case.service_state == 'open')
+              print(open_case)
+              if not open_case:
+                     consumed_parts=[]
+                     for rec in machine.product_ids:
+                         consumed_parts.append(Command.create({
+                             'product_id': rec.product_id.id,
+                             'quantity': rec.part_quantity,
+                             'price_unit': rec.part_price,
+                             'part_uom': rec.part_uom,
+                         }))
 
+                     latest_machine=self.env['machine.machine.service'].create({
+                         'machine_id': machine.id,
+                         'date_of_service': machine.next_service_date,
+                         'customer_id': machine.customer_name_id.id,
+                         'consumed_parts_ids': consumed_parts,
 
+                     })
+                     print(latest_machine)
+                     latest_machine.button_case_start()
 
+                     service_frequency=machine.service_frequency
+                     print(service_frequency)
+                     if service_frequency == 'weekly':
+                         machine.write({'next_service_date':machine.next_service_date + datetime.timedelta(weeks=1)})
 
-
-
-
-
-
-
-
-
-
-    #     machine_list = self.env['machine.machine.service'].search([])
-    #     # print('value of self=', self)
-        # machine_name = self.env['machine.machine'].search([])
-        #
-        # sorted_list = machine_name.sorted(lambda record: record.status=='inservice', reverse=True)
-        # record_id = sorted_list[0]
-        # service_list =record_id.machine_service_ids.search_count([('service_state', '=', 'open')])
-        # print('rec=', record_id)
-        # print('recids',record_id.machine_service_ids)
-        # print(machine_name)
-        # print(sorted_list)
-        # if self.service_frequency=='weekly':
-        #
-        #     self.write({
-        #         'next_service_date': record_id.date_of_purchase + datetime.timedelta(7),
-        #     })
-        #     print('value of next date=', record_id.next_service_date)
-        # elif self.service_frequency=='monthly':
-        #
-        #     self.write({
-        #         'next_service_date': record_id.date_of_purchase + datetime.timedelta(30),
-        #     })
-        #     print('value of next date=', record_id.next_service_date)
-        # else:
-        #     self.write({
-        #         'next_service_date': record_id.date_of_purchase,
-        #     })
-        #
-        #
-        # print('name=',record_id.machine_name)
-        # print("next date=", record_id.next_service_date)
-        # print("service_list",service_list)
-        # print("state=",record_id.status)
-        # print("state value=",record_id.status=='inservice')
-        #
-        # if service_list==0 and record_id.status=='inservice':
-        #      self.env['machine.machine.service'].create({
-        #         'machine_id':record_id.id,
-        #         'date_of_service':record_id.next_service_date,
-        #      })
-
-
-
-
+                     elif service_frequency == 'monthly':
+                         machine.write({'next_service_date': machine.next_service_date + datetime.timedelta(30)})
+                     elif service_frequency == 'yearly':
+                         machine.write({'next_service_date': machine.next_service_date + datetime.timedelta(365)})
+                     else:
+                         machine.write({'next_service_date': machine.next_service_date})
 
 
 
@@ -295,7 +265,8 @@ class machine_machine(models.Model):
             'view_mode': 'form',
             'target': 'self',
             'context': {'default_machine_id': self.id,
-                        'default_customer_id':self.customer_name_id.id
+                        'default_customer_id':self.customer_name_id.id,
+                        'default_date_of_service':self.date_of_purchase
                         },
         }
 
