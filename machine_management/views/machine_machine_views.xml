@@ -85,7 +85,7 @@
                             <field name="currency_id" invisible="1"/>
                             <field name="purchase_value"/>
                             <field name="demo_data" invisible="True"/>
-                            <field name="active" invisible="True"/>
+                            <field name="active" invisible="True" groups="machine_management.group_machine_manager"/>
 
 
                         </group>
@@ -95,6 +95,7 @@
                             <field name="is_warrenty"/>
                             <field name="machine_type_id"/>
                             <field name="machine_tag_ids" widget="many2many_tags" options="{'color_field': 'machine_tags_color'}"/>
+                            <field name="company_id"/>
                             <field name="service_frequency"/>
                             <field name="next_service_date" readonly="True"/>
 

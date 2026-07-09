@@ -41,8 +41,6 @@ class machine_machine(models.Model):
     next_service_date= fields.Date(string="Next Service Date",compute="_compute_next_service_date",store=True)
 
 
-
-
     @api.depends('service_frequency','date_of_purchase')
     def _compute_next_service_date(self):
         if self.service_frequency == 'weekly':
@@ -269,6 +267,16 @@ class machine_machine(models.Model):
                         'default_date_of_service':self.date_of_purchase
                         },
         }
+
+    def machine_customer_actions(self):
+        return {
+        'name': 'Customer Details',
+        'type': 'ir.actions.act_window', 'target': 'new',
+        'view_mode': 'list,form',
+        'views': [(False, 'list'), (False, 'form')],
+        'domain':[('id','=',self.customer_name_id)],
+        'context': {'create': False},
+        'help': self.env._("See all possible values")}
 
 
 

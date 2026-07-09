@@ -5,9 +5,10 @@
 
     <!-- Sub Menu -->
     <menuitem id="menu_machines" name="Machines" parent="machine_menu" action="machine_mangt_actions" sequence="0"/>
-    <menuitem id="menu_transfer" name="Machine Transfers" parent="machine_menu" action="machine_transfer_actions" sequence="1" />
-    <menuitem id="menu_services" name="Machine Services" parent="machine_menu" action="machine_service_actions" sequence="2"/>
-    <menuitem id="menu_settings" name="Settings" parent="machine_menu" sequence="3" />
+    <menuitem id="menu_transfer" name="Machine Transfers" parent="menu_machines" action="machine_transfer_actions" sequence="1" />
+    <menuitem id="menu_services" name="Machine Services" parent="menu_machines" action="machine_service_actions" sequence="2"/>
+    <menuitem id="menu_customers" name="Customers" parent="menu_machines" sequence="3" action="machine_customer_actions"/>
+    <menuitem id="menu_settings" name="Settings" parent="machine_menu" sequence="4" />
 
 
     <!-- Sub Menu with actions -->

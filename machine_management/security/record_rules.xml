@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Rule 1: Users can only see their own patients -->
+       <record id="machine_user_rule" model="ir.rule">
+            <field name="name">Tech Person: See Own cases Only</field>
+            <field name="model_id" ref="model_machine_machine_service"/>
+            <field name="domain_force">[('tech_person_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_machine_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <record id="machine_manager_rule" model="ir.rule">
+            <field name="name">Manager: See all cases Only</field>
+            <field name="model_id" ref="model_machine_machine_service"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_machine_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+         <record id="machine_company_rule" model="ir.rule">
+            <field name="name">Multi-Company Machine Rule</field>
+            <field name="model_id" ref="model_machine_machine"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="machine_service_company_rule" model="ir.rule">
+            <field name="name">Multi-Company Machine service Rule</field>
+            <field name="model_id" ref="model_machine_machine_service"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="machine_transfer_company_rule" model="ir.rule">
+            <field name="name">Multi-Company Machine transfer Rule</field>
+            <field name="model_id" ref="model_machine_machine_transfer"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+    </data>
+</odoo>

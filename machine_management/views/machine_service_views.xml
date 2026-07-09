@@ -29,7 +29,7 @@
             <form delete="True">
                 <header>
                     <button name="button_case_start" type="object" string="Start" class="oe_highlight" invisible="is_case_status"/>
-                    <button name="button_case_close" type="object" string="Close" class="oe_highlight" invisible=" not is_case_status or is_invoice_status"/>
+                    <button name="button_case_close" type="object" string="Close" class="oe_highlight" invisible=" not is_case_status or is_invoice_status" groups="machine_management.group_machine_manager"/>
                      <button name="machine_invoice" type="object" string="Invoice" invisible="not is_invoice_status or is_ribbon_status" class="oe_highlight"/>
                      <field name="service_state" widget="statusbar" options="{'clickable':1}"/>
                 </header>
