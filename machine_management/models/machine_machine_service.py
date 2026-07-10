@@ -126,6 +126,7 @@ class MachineMachineService(models.Model):
              self.res_id=invoice.id
 
     def action_open_invoice(self):
+           """Function for opening invoice view when the invoice button is clicked"""
            return {
             'type': 'ir.actions.act_window',
             'name': 'machine_invoice_redirect',

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Rule 1: Users can only see their own patients -->
+        <!-- Rule 1: Users can only see their own service cases -->
        <record id="machine_user_rule" model="ir.rule">
             <field name="name">Tech Person: See Own cases Only</field>
             <field name="model_id" ref="model_machine_machine_service"/>
@@ -12,6 +12,8 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
         </record>
+
+        <!-- Rule 2: Managers can  see every service cases registered -->
         <record id="machine_manager_rule" model="ir.rule">
             <field name="name">Manager: See all cases Only</field>
             <field name="model_id" ref="model_machine_machine_service"/>
@@ -22,12 +24,15 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
         </record>
+
+        <!-- Rule 3: Machine data of an company is not visible to another company -->
          <record id="machine_company_rule" model="ir.rule">
             <field name="name">Multi-Company Machine Rule</field>
             <field name="model_id" ref="model_machine_machine"/>
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
             <field name="global" eval="True"/>
         </record>
+
         <record id="machine_service_company_rule" model="ir.rule">
             <field name="name">Multi-Company Machine service Rule</field>
             <field name="model_id" ref="model_machine_machine_service"/>

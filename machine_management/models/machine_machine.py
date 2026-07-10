@@ -43,6 +43,7 @@ class machine_machine(models.Model):
 
     @api.depends('service_frequency','date_of_purchase')
     def _compute_next_service_date(self):
+        """Compute Function for Next Service Date"""
         if self.service_frequency == 'weekly':
             self.next_service_date= self.date_of_purchase + datetime.timedelta(weeks=1)
         elif self.service_frequency == 'monthly':
@@ -53,8 +54,8 @@ class machine_machine(models.Model):
             self.next_service_date= self.date_of_purchase
 
 
-
     def action_cron_test_method(self):
+          """Function to cron the cron_test_method"""
           date_now=fields.Date.today()
           print(date_now)
           machine_list = self.env['machine.machine'].search([('status','=','inservice'),('next_service_date','=',fields.Date.today())])
@@ -97,7 +98,6 @@ class machine_machine(models.Model):
                          machine.write({'next_service_date': machine.next_service_date})
 
 
-
     def action_archive(self):
         """Function to archive the machine list related to this partner"""
         open_case=self.machine_service_ids.search_count([('service_state', '=', 'open')])
@@ -126,6 +126,7 @@ class machine_machine(models.Model):
         return res
 
     def change_case_state(self):
+        """Function to change the state of the service"""
         self.machine_service_ids.write({
             'service_state':'cancel'
         })
@@ -245,6 +246,7 @@ class machine_machine(models.Model):
     }
 
     def action_open_case_list(self):
+        """Function to redirect to specific machine service list by clicking smart button """
         return {
             'type': 'ir.actions.act_window',
             'name': 'machine_service_list',
@@ -256,6 +258,7 @@ class machine_machine(models.Model):
 
 
     def button_service_redirect(self):
+        """Function to redirect to machine service list by clicking button transfer """
         return {
             'type': 'ir.actions.act_window',
             'name': 'machine_service_redirect',
@@ -268,15 +271,7 @@ class machine_machine(models.Model):
                         },
         }
 
-    def machine_customer_actions(self):
-        return {
-        'name': 'Customer Details',
-        'type': 'ir.actions.act_window', 'target': 'new',
-        'view_mode': 'list,form',
-        'views': [(False, 'list'), (False, 'form')],
-        'domain':[('id','=',self.customer_name_id)],
-        'context': {'create': False},
-        'help': self.env._("See all possible values")}
+
 
 
 

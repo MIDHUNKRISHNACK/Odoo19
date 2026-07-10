@@ -9,6 +9,7 @@ class AccountMove(models.Model):
 
 
     def action_post(self):
+      """Function to execute draft ribbon when posting to the machine service invoice"""
       res=super().action_post()
       print("result=", self.machine_service_id)
       self.machine_service_id.write({'is_ribbon_draft':True})
@@ -16,6 +17,7 @@ class AccountMove(models.Model):
       return res
 
     def action_register_payment(self):
+        """Function to execute post ribbon when posting to the machine service invoice"""
         res=super().action_register_payment()
         self.machine_service_id.write({'is_ribbon_post':True})
         print("result2=",(self.machine_service_id.is_ribbon_post))

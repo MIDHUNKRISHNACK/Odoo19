@@ -41,7 +41,6 @@ class machine_machine_transfer(models.Model):
             else:
                 machine=rec.machine_name_test.search([])
 
-
             # special Characters used for setting value to an many2many field
             rec.update({
                 'alternate_machine_ids': [(fields.Command.set(machine.ids))]
