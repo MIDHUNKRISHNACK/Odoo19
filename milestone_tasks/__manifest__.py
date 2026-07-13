@@ -1,0 +1,15 @@
+{
+    'name': "milestone_tasks",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """milestone tasks""",
+    'description': """Creating an parent and child task from sale order""",
+    'depends': ['base','sale','product'],
+    'data': ["views/sale_order_lines.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

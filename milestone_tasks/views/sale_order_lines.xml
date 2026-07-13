@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+
+        <record id="sale_order_line_milestone_inherit_view" model="ir.ui.view">
+            <field name="name">sale.order.line.milestone.inherit.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+<!--                 Adding a new Smart button-->
+
+                 <xpath expr="//div[@name='button_box']" position="inside">
+                     <div class="oe_button_box" name="button_box">
+                          <button class="oe_stat_button" type="object"
+                            name="action_open_project_view"
+                            icon="fa-puzzle-piece">
+                              <div class="o_stat_info">
+                                 <span class="o_stat_text">Project</span>
+                              </div>
+                        </button>
+                    </div>
+
+                </xpath>
+
+<!--                button for creating a new project and related tasks in project model-->
+                
+                <xpath expr="//header" position="inside">
+                    <button name="button_task_create" type="object" string="Create Project" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/list/field[@name='tax_ids']" position="after">
+                     <field name="milestone"/>
+                </xpath>
+            </field>
+        </record>
+ </data>
+</odoo>
