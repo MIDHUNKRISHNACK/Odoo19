@@ -1,0 +1,16 @@
+{
+    'name': "vip_discount",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ special discount on sale order """,
+    'description': """Allowing special discount on sale order for an perticular customer""",
+    'depends': ['base','sale','product'],
+    'data': ["views/res_partner.xml",
+             "views/sale_order.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

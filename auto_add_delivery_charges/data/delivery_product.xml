@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="delivery_product" model="product.product">
+        <field name="name">Extra Delivery charge</field>
+        <field name="list_price">99</field>
+    </record>
+</odoo>

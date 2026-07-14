@@ -1,0 +1,15 @@
+{
+    'name': "auto_add_delivery_charges",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ Automatically adding delivery charge in sale order """,
+    'description': """ Automatically adding delivery charge in sale order while untaxed amount is less than 1500 """,
+    'depends': ['base','sale','product'],
+    'data': ["data/delivery_product.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}
