@@ -1,0 +1,15 @@
+{
+    'name': "vendor_product_list",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ For showing the products of the corresponding vendor in purchase order. """,
+    'description': """ only show the products of the corresponding vendor. Else display complete products in the purchase order line. """,
+    'depends': ['base','purchase','product'],
+    'data': ["views/purchase_order_view.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

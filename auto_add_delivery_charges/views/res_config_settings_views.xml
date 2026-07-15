@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+
+        <record id="res_config_settings_inherit_view" model="ir.ui.view">
+            <field name="name">res.config.settings.inherit.view"</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+
+                  <xpath expr="//block[@id='pricing_setting_container']" position="inside">
+                      <setting id="extra_delivery_charge_sale_order_lines" title="Extra Delivery Charge" help="Applies Extra Service Charge for untaxed amount ">
+                            <field name="is_delivery_charge"/>
+                            <label for="delivery_charge" string="Untaxed Amount Less than :   " invisible="not is_delivery_charge"/>
+                            <field name="delivery_charge"  invisible="not is_delivery_charge" />
+                       </setting>
+
+                </xpath>
+            </field>
+        </record>
+ </data>
+</odoo>
