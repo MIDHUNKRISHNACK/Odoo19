@@ -1,0 +1,15 @@
+{
+    'name': "hour_limit",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """hour limit warning""",
+    'description': """show a User error if timespent is greater than hours per day.""",
+    'depends': ['base','project'],
+    'data': ["views/project_task.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

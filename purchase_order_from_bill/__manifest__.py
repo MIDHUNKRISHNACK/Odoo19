@@ -1,0 +1,15 @@
+{
+    'name': "purchase_order_from_bill",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ creating a purchase order from billing """,
+    'description': """ clicking the create button need to create a new purchase order from the drafted vendor bill and need to change the state """,
+    'depends': ['base','purchase','product','account'],
+    'data': ["views/account_move.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}
