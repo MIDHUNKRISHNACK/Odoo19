@@ -1,4 +1,3 @@
-
 from odoo import fields, models, api,_
 from odoo.orm import commands
 from odoo.orm.commands import Command
@@ -7,10 +6,10 @@ from odoo.orm.commands import Command
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    purchase_order_id=fields.Integer("Purchase Bill")
-
+    purchase_order_id=fields.Many2one('purchase.order')
 
     def button_po_create(self):
+        """Function for creating new purchase order from bill while clicking the button create po """
         order_lines = []
         for record in self:
             for rec in record.invoice_line_ids:
@@ -22,16 +21,23 @@ class AccountMove(models.Model):
                     'price_unit': rec.price_unit,
                     'price_subtotal': rec.price_subtotal,
                 }))
+
         purchase_order=self.env['purchase.order'].create({
             'partner_id':self.partner_id.id,
             'date_approve':self.date,
             'date_planned':self.invoice_date,
             'order_line':order_lines,
         })
-
-        self.purchase_order_id=purchase_order.id
         purchase_order.button_confirm()
-        # match_lines = self.env['purchase.bill.line.match'].search([('partner_id', '=', self.partner_id)])
-        # match_lines.action_match_lines()
+
+        self.write({'purchase_order_id':purchase_order})
 
 
+    def button_po_matching(self):
+        """Function for matching purchase order lines with bill lines"""
+        print(self.purchase_order_id.name)
+        matching_lines =self.env['purchase.bill.line.match'].search([])
+        print(matching_lines)
+        filtered_matching_lines = matching_lines.sudo().filtered(lambda l: l.reference == self.purchase_order_id.name)
+
+        filtered_matching_lines.action_match_lines()

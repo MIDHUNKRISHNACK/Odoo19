@@ -9,10 +9,11 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//header" position="inside">
-                    <button name="button_po_create" type="object" string="Create PO" class="oe_highlight" visible="state==draft" context="{'validate_analytic': True}"/>
+                    <button name="button_po_create" type="object" string="Create PO" class="oe_highlight" />
+                    <button name="button_po_matching" type="object" string="Match PO" class="oe_highlight" />
                 </xpath>
 
             </field>
         </record>
  </data>
-</odoo>
+</odoo> 
