@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_machine_transfer_report_wizard_form" model="ir.ui.view">
+        <field name="name">machine.transfer.report.wizard.form</field>
+        <field name="model">machine.transfer.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Machine Transfer Report">
+                <group>
+                    <group string="Date Range">
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                    </group>
+                    <group string="Filters">
+                        <field name="machine_name_id"/>
+                        <field name="customer_id"/>
+<!--                        <field name="transfer_type"/>-->
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_machine_transfer_report"
+                            string="Print Report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_open_task_report_wizard" model="ir.actions.act_window">
+        <field name="name">Task Report</field>
+        <field name="res_model">machine.transfer.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

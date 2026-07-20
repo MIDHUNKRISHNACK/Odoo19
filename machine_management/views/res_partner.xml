@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+
+        <record id="machine_machine_customer_view" model="ir.ui.view">
+            <field name="name">machine.machine.customer.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                     <div class="oe_button_box" name="button_box">
+                          <button class="oe_stat_button" type="object"
+                            name="action_open_machine_list_view"
+                            icon="fa-usd" >
+                              <div class="o_stat_info">
+                                  <field name="machine_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
+                                  <span class="o_stat_text">Machines</span>
+                              </div>
+                        </button>
+                    </div>
+
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                     <page string="Related Machine List " name="machine_list">
+                                <field name="machine_ids">
+                                <list editable="bottom">
+                                    <field name="machine_name"/>
+                                </list>
+                                </field>
+
+                     </page>
+                </xpath>
+
+
+        </field>
+</record>
+
+      <record id="customer_search_view" model="ir.ui.view">
+    <field name="name">customer Search</field>
+   <field name="model">res.partner</field>
+   <field name="arch" type="xml">
+       <search>
+
+               <filter name="filter_partners" string="partners" domain="[('machine_ids','!=',False)]"/>
+
+       </search>
+   </field>
+</record>
+
+ <record id="machine_customer_actions" model="ir.actions.act_window">
+        <field name="name" >Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('id','!=',False)]</field>
+        <field name="context">{'search_default_filter_partners': 1}</field>
+
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create Your First Machine</p>
+        </field>
+    </record>
+ </data>
+</odoo>

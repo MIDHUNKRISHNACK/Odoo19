@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="transfer_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2 class="text-center">Machine Transfer Report</h2>
+                    <hr/>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <strong>Machine name </strong>
+                            <span t-esc="machine_name_id"/>
+                        </div>
+                        <div class="col-3">
+                            <strong>From: </strong>
+                            <span t-esc="from_date"/>
+                        </div>
+                        <div class="col-3">
+                            <strong>To: </strong>
+                            <span t-esc="to_date"/>
+                        </div>
+                        <div class="col-3">
+                            <strong>Customer Name : </strong>
+                            <span t-esc="customer_id"/>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-sm">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Machine Name</th>
+                                <th>Project</th>
+                                <th>Assigned To</th>
+                                <th>Deadline</th>
+                                <th>Stage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data" t-as="transfer">
+                                <tr>
+
+                                    <td t-field="transfer.machine_name_id.machine_name"/>
+                                    <td t-field="transfer.customer_id.name"/>
+                                    <td>
+                                        <t t-foreach="transfer.transfer_ids" t-as="product">
+                                            <span t-esc="product.transfer_type"/>
+                                            <span t-esc="product.transfer_date"/>
+
+                                        </t>
+                                    </td>
+                                    <td t-field="transfer.date_deadline"/>
+                                    <td t-field="transfer.transfer_type.name"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="mt-3">
+                        <strong>Total Transfers: </strong>
+                        <span t-esc="len(docs)"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
