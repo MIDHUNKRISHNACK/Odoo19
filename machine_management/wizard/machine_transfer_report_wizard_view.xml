@@ -11,9 +11,9 @@
                         <field name="to_date"/>
                     </group>
                     <group string="Filters">
-                        <field name="machine_name_id"/>
-                        <field name="customer_id"/>
-<!--                        <field name="transfer_type"/>-->
+                        <field name="machine_name_ids" widget="many2many_tags"/>
+                        <field name="customer_ids" widget="many2many_tags"/>
+                        <field name="transfer_type"/>
                     </group>
                 </group>
                 <footer>
