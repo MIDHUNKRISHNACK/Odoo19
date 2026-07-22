@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="machine_report_template">
+        <t t-call="web.html_container">
+         <t t-foreach="docs" t-as="machine">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2 class="text-center">Machine Report</h2>
+                        <hr/>
+
+                        <div class="row mb-4">
+
+                            <div class="col-3">
+                                <strong>Machine Name :</strong>
+                                <span t-esc="machine.machine_name"/>
+                            </div>
+                            <div class="col-3">
+
+                            </div>
+                            <div class="col-6">
+                                <strong>Customer Name :</strong>
+                                <span t-esc="machine.customer_name_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-3">
+                                <strong>Serial No :</strong>
+                                <span t-esc="machine.serial_number"/>
+                            </div>
+                            <div class="col-3">
+
+                            </div>
+                            <div class="col-6">
+                                <strong>Service Freequency :</strong>
+                                <span t-esc="machine.service_frequency"/>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-3">
+                                <strong>Date of Purchase :</strong>
+                                <span t-esc="machine.date_of_purchase"/>
+                            </div>
+                            <div class="col-3">
+                            </div>
+                            <div class="col-6">
+                                <strong>Next Service date :</strong>
+                                <span t-esc="machine.next_service_date"/>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-3">
+                                <strong>Quantity :</strong>
+                                <span t-esc="machine.quantity"/>
+                            </div>
+                            <div class="col-3">
+
+                            </div>
+
+                            <div class="col-6">
+                                <strong>Machine Type :</strong>
+                                <span t-esc="machine.machine_type_id.display_name"/>
+                            </div>
+                        </div>
+
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <strong>Purchase Value :</strong>
+                            <span t-esc="machine.purchase_value"/>
+                        </div>
+                    </div>
+                    <h5 class="text-center">Machine Parts</h5>
+
+                    <table class="table table-bordered table-sm">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>
+                                    <strong>Machine Parts</strong>
+                                </th>
+
+                                <th>
+                                    <strong>Quantity</strong>
+                                </th>
+                                <th>
+                                    <strong>Unit Of Measure</strong>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs.product_ids" t-as="parts">
+                                <tr>
+
+                                    <td t-esc="parts.product_id.name"/>
+                                    <td t-esc="parts.part_quantity"/>
+                                    <td t-esc="parts.part_uom"/>
+
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+        </odoo>

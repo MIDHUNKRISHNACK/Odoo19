@@ -10,7 +10,11 @@ class MachineTransferReportWizard(models.TransientModel):
     customer_ids=fields.Many2many(string="Customer Name",comodel_name="res.partner")
     machine_name_ids=fields.Many2many(string="Machine Name",comodel_name="machine.machine")
 
+    def action_print_machine_transfer_xlsx_report(self):
+        print("helloii")
+
     def action_print_machine_transfer_report(self):
+        """ Function for filtering values based on the given fields in wizard and passes to the abstract model """
         print(self.env.cr.dbname)
         customer=tuple(self.customer_ids.ids)
         machine=tuple(self.machine_name_ids.ids)
@@ -20,19 +24,26 @@ class MachineTransferReportWizard(models.TransientModel):
         print(self.to_date.date())
 
 
-        query=""" SELECT DISTINCT machine_transfer_report_wizard_res_partner_rel.res_partner_id,machine_machine_machine_transfer_report_wizard_rel.machine_machine_id,machine_machine.machine_name,machine_machine_transfer.transfer_type FROM machine_transfer_report_wizard  INNER JOIN machine_transfer_report_wizard_res_partner_rel ON machine_transfer_report_wizard.id= machine_transfer_report_wizard_res_partner_rel.machine_transfer_report_wizard_id INNER JOIN machine_machine_machine_transfer_report_wizard_rel ON machine_transfer_report_wizard.id=machine_machine_machine_transfer_report_wizard_rel.machine_transfer_report_wizard_id INNER JOIN machine_machine ON machine_machine.id=machine_machine_machine_transfer_report_wizard_rel.machine_machine_id INNER JOIN machine_machine_transfer ON machine_machine.customer_name_id=machine_machine_transfer.customer_name_id
-        WHERE machine_transfer_report_wizard_res_partner_rel.res_partner_id IN %s AND machine_machine_machine_transfer_report_wizard_rel.machine_machine_id IN %s AND  machine_machine_transfer.transfer_type='%s' AND machine_machine_transfer.transfer_date>='%s' AND machine_machine_transfer.transfer_date<='%s'""" %(customer,machine,self.transfer_type,self.from_date.date(),self.to_date.date())
+        query="""SELECT DISTINCT machine_machine.machine_name,machine_machine_transfer.transfer_type,res_partner.name,machine_machine_transfer.transfer_date FROM machine_machine_transfer INNER JOIN machine_machine ON machine_machine_transfer.machine_name_id=machine_machine.id INNER JOIN res_partner ON machine_machine_transfer.customer_name_id=res_partner.id
+        WHERE machine_machine_transfer.customer_name_id IN %s AND machine_machine_transfer.machine_name_id IN %s AND machine_machine_transfer.transfer_type='%s' AND machine_machine_transfer.transfer_date>='%s' AND machine_machine_transfer.transfer_date<='%s'""" %(customer,machine,self.transfer_type,self.from_date.date(),self.to_date.date())
         self.env.cr.execute(query)
-        transfer_ids=self.env.cr.fetchall()
+        transfer_ids=self.env.cr.dictfetchall()
+        transfer_ids.append({
+            "from_date":self.from_date.date(),
+            "to_date":self.to_date.date()
+        })
         print(transfer_ids)
         print("length of =",len(transfer_ids))
 
 
+
         return self.env.ref(
                 'machine_management.action_machine_transfer_wizard_report'
-            ).report_action(None, data=transfer_ids)
+            ).report_action(None, data={'transfer_data':transfer_ids})
 
 
+
+        # Method for filtering values using Domain
         # domain=[
         #     ('transfer_date', '>=', self.from_date),
         #     ('transfer_date', '<=', self.to_date),

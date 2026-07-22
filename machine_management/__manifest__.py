@@ -13,6 +13,8 @@
              "data/machine_sequence.xml",
              "data/machine_machine_types.xml",
              "data/ir_cron_data.xml",
+             "report/machine_report_template.xml",
+             "report/machine_report_action.xml",
              "report/machine_transfer_wizard_report_template.xml",
              "report/machine_transfer_wizard_report_action.xml",
              "wizard/machine_transfer_report_wizard_view.xml",
