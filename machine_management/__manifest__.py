@@ -26,6 +26,9 @@
              "views/machine_machine_views.xml",
              "views/machine_machine_menus.xml",
              ],
+    'assets':{
+      'web.assets_backend':["machine_management/static/src/js/action_manager.js"]
+     },
     'author': "demo company",
     'website': "https://www.demo_company.com",
     'sequence': -10,

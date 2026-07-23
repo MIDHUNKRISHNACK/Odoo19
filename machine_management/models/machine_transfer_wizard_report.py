@@ -5,7 +5,6 @@ class MachineTransferWizardReport(models.AbstractModel):
     _description = 'Machine Transfer Wizard Report'
 
 
-
     @api.model
     def _get_report_values(self,docids,data=None):
         """Function for getting values from transiant model and return to the qweb template after checking the customer name of every transfer is same """
