@@ -1,0 +1,18 @@
+{
+    'name': "automated_purchase_order",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ creating a automated purchase order from product """,
+    'description': """ Adding the details from  product  model wizard there is an automatic purchase order will be created based on the given details  """,
+    'depends': ['base','purchase','product'],
+    'data': ["security/ir.model.access.csv",
+        "views/product_product.xml",
+             "wizard/product_product_wizard.xml",
+             ],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+
+        <record id="product_product_inherit_view" model="ir.ui.view">
+            <field name="name">product.product.inherit.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet[@name='product_form']" position="before">
+                    <header>
+                    <button name="button_po_create" type="object" string="Create PO" class="oe_highlight"/>
+                    </header>
+
+                </xpath>
+            </field>
+        </record>
+ </data>
+</odoo>

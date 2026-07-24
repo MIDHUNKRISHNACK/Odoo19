@@ -8,8 +8,13 @@ class XLSXReportController(http.Controller):
     @http.route('/xlsx_reports', type='http', auth='user', methods=['POST'],
                 csrf=False)
     def get_report_xlsx(self, model, options, output_format, report_name):
-
+        """Function for receiving field values from js file and calls inside the abstract model function"""
+        print("model", model)
+        print("options", options)
+        print("output_format", output_format)
+        print(" request.env[model]=", request.env[model])
         report_obj = request.env[model].with_user(request.session.uid)
+        print(" report_obj=", report_obj)
         options = json.loads(options)
         token = 'dummy-because-api-expects-one'
         try:

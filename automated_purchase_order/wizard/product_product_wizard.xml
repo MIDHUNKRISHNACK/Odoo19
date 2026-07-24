@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_product_wizard_from" model="ir.ui.view">
+        <field name="name">product.product.wizard.form</field>
+        <field name="model">product.product.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Automated Purchase Order">
+
+                    <group string="Product Details">
+                        <field name="product_id"/>
+                        <field name="quantity"/>
+                        <field name="price"/>
+                    </group>
+
+                <footer>
+                    <button name="action_create_po"
+                            string="Create Purchase Order"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_product_product_wizard" model="ir.actions.act_window">
+        <field name="name">product.product.wizard</field>
+        <field name="res_model">product.product.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

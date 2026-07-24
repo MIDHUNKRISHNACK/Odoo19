@@ -3,8 +3,8 @@ import { BlockUI } from "@web/core/ui/block_ui";
 import { download } from "@web/core/network/download";
 
 registry.category("ir.actions.report handlers").add("xlsx", async function (action) {
-    // console.log("Hello world!");
-   if (action.report_type === 'xlsx') {
+    console.log("action",action);
+   // if (action.report_type === 'xlsx') {
        BlockUI;
       await download({
               url: '/xlsx_reports',
@@ -12,5 +12,5 @@ registry.category("ir.actions.report handlers").add("xlsx", async function (acti
               complete: () => unblockUI,
               error: (error) => self.call('crash_manager', 'rpc_error', error),
               });
-   }
+   // }
 });
