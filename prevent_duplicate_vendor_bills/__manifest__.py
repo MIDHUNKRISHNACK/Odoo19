@@ -1,0 +1,16 @@
+{
+    'name': "prevent_duplicate_vendor_bills",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ preventing duplicate vendor bills at the time of bill posting """,
+    'description': """ preventing duplicate vendor bills at the time of bill posting whether the bill contains same vendor ,vendor_ref,product,amount""",
+    'depends': ['base','purchase','product','account'],
+    'data': ["views/res_partner.xml",
+             ],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}
