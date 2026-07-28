@@ -1,0 +1,17 @@
+{
+    'name': "purchase_order_delivery_rating",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ Purchase order delivery rating and supplier validation """,
+    'description': """ Rating the purchase order delivery upto 5 star and validates the supplier performance from it  """,
+    'depends': ['base','purchase','product','account'],
+    'data': ["views/res_config_settings.xml",
+             "views/purchase_order_.xml",
+             "views/res_partner.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}
