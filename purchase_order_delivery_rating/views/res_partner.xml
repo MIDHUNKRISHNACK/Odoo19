@@ -20,7 +20,7 @@
                 </xpath>
 
                  <xpath expr="//field[@name='category_id']" position="after">
-                    <field name="vendor_rating"/>
+                    <field name="vendor_rating" invisible="not status_rating"/>
                  </xpath>
 
                 <xpath expr="//notebook" position="inside">
