@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="machine_machine_service_template" name="Machine Service Form">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-12 text-center mt-5">
+                               <h1>Welcome to Machine Service Page!</h1>
+                               <p class="lead">
+                                   Hello, <t t-esc="user_name"/>! Please Enter Your Machine Details.
+                               </p>
+                           </div>
+                       </div>
+                       <div>
+                   <div class="card shadow rounded-3 border-0 ">
+                       <div class="card-body p-4 text-center">
+                                     <form action="/service-create" method="post">
+                                        <div class="mb-4">
+                                            <label class="form-label">Customer Name : </label>
+                                            <select id="customer_id" name="cus_name">
+                                                <t t-foreach="customer_ids" t-as="customer">
+                                                <option t-esc="customer.name" t-att-value="customer.id"/>
+                                                </t>
+                                            </select>
+
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Machine Name : </label>
+                                            <select id="machine_id" name="machine_name">
+                                                <t t-foreach="machine_ids" t-as="machine">
+                                                <option t-esc="machine.machine_name" t-att-value="machine.id"/>
+                                                </t>
+                                            </select>
+
+                                        </div>
+                                         <div class="mb-4">
+                                            <label class="form-label">Quantity : </label>
+                                            <input type="number" name="quantity" required="required"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Date Of Service: </label>
+                                            <input type="date" name="purchase_date" required="True"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label" >Machine type :</label>
+                                            <select id="machine_type" name="machine_type">
+                                              <option value="vendor">Vendor</option>
+                                              <option value="cooler">Cooler</option>
+                                              <option value="laundry">Laundry</option>
+                                            </select>
+                                        </div>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               </div>
+                       </div>
+                           </div>
+                </div>
+                 </t>
+        </template>
+
+
+<!--        Success Page-->
+
+
+         <template id="service_register_success_template" name="Service Created">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h3>Service Created Successfully!</h3>
+                </div>
+            </t>
+        </template>
+
+
+        <!-- Website Menu Record -->
+
+
+        <record id="menu_machine_service_form" model="website.menu">
+            <field name="name">Machine Service</field>
+            <field name="url">/service-odoo</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+    </data>
+</odoo>

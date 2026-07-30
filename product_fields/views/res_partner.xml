@@ -8,9 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="is_prime_customer"/>
-
                 </xpath>
-
         </field>
         </record>
  </data>

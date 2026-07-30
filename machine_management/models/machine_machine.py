@@ -10,7 +10,7 @@ class machine_machine(models.Model):
     _rec_name = 'machine_name'
 
     customer_name_id=fields.Many2one('res.partner',string="Customer Name",readonly=True)
-    date_of_purchase=fields.Date(string="Date Of Purchase",required=True,help="Enter the date of purchase")
+    date_of_purchase=fields.Date(string="Date Of Purchase",required=False,help="Enter the date of purchase")
     quantity=fields.Integer(string="Quantity",required=True,help="Enter the quantity of purchase")
     company_id = fields.Many2one('res.company', store=True, copy=False,
                                  string="Company",
@@ -19,10 +19,10 @@ class machine_machine(models.Model):
                                   related="company_id.currency_id")
     purchase_value = fields.Monetary(string="Purchase Value")
     machine_name= fields.Char( required=True,help="Enter the name of the machine",tracking=True)
-    description=fields.Char(string="Description",required=True,help="Enter the description of the machine")
+    description=fields.Char(string="Description",required=False,help="Enter the description of the machine")
     is_warrenty=fields.Boolean(string="warrenty",help="Warrenty status",default=False)
     status=fields.Selection([('active','Active'),('inservice','Inservice')],default='active',tracking=True,help="Select the status of machine")
-    image=fields.Image(required=True)
+    image=fields.Image(required=False)
     instructions=fields.Html(string="Instructions")
     machine_ref=fields.Char(readonly=True,default=_("New"))
     machine_type_id=fields.Many2one('machine.machine.types',string="Machine Type")
@@ -121,7 +121,6 @@ class machine_machine(models.Model):
                      'next': self.change_case_state(),
                 }
             }
-
 
         return res
 
