@@ -3,72 +3,155 @@
     <data>
         <template id="machine_machine_service_template" name="Machine Service Form">
             <t t-call="website.layout">
-                <div id="wrap" class="oe_structure">
-                   <div class="container">
-                       <div class="row">
-                           <div class="col-12 text-center mt-5">
-                               <h1>Welcome to Machine Service Page!</h1>
-                               <p class="lead">
-                                   Hello, <t t-esc="user_name"/>! Please Enter Your Machine Details.
-                               </p>
-                           </div>
-                       </div>
-                       <div>
-                   <div class="card shadow rounded-3 border-0 ">
-                       <div class="card-body p-4 text-center">
-                                     <form action="/service-create" method="post">
-                                        <div class="mb-4">
-                                            <label class="form-label">Customer Name : </label>
-                                            <select id="customer_id" name="cus_name">
-                                                <t t-foreach="customer_ids" t-as="customer">
-                                                <option t-esc="customer.name" t-att-value="customer.id"/>
-                                                </t>
-                                            </select>
 
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label">Machine Name : </label>
-                                            <select id="machine_id" name="machine_name">
-                                                <t t-foreach="machine_ids" t-as="machine">
-                                                <option t-esc="machine.machine_name" t-att-value="machine.id"/>
-                                                </t>
-                                            </select>
+                <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                     data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Machine Service Registration</h1>
+                    </div>
+                </div>
+                <div class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 mt-4 mt-lg-0">
+                                <p class="lead">
+                                    Book your Machine services slot.
+                                    <br/>
+                                    We'll do our best to get good result.
+                                </p>
+                                <div class="container">
+                                    <form action="/service-create" method="post">
+                                        <div class="row">
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Customer Name :</label>
+                                                <select id="customer_id" name="cus_name" class="form-select">
+                                                    <t t-foreach="customer_ids" t-as="customer">
+                                                        <option t-esc="customer.name" t-att-value="customer.id"/>
+                                                    </t>
+                                                </select>
 
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Machine Name :</label>
+                                                <br />
+                                                <select id="machine_id" name="machine_name" class="form-select">
+                                                    <t t-foreach="machine_ids" t-as="machine">
+                                                        <option t-esc="machine.machine_name" t-att-value="machine.id"/>
+                                                    </t>
+                                                </select>
+
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Quantity :</label>
+                                                <br />
+                                                <input type="number" name="quantity" required="required" class="form-control"/>
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Date Of Service:</label>
+                                                <br />
+                                                <input type="date" name="purchase_date" required="True" class="datetimepicker-input form-control"/>
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Machine type :</label>
+                                                <br />
+                                                <select id="machine_type" name="machine_type" class="form-select">
+                                                    <option value="vendor">Vendor</option>
+                                                    <option value="cooler">Cooler</option>
+                                                    <option value="laundry">Laundry</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <a href="/thanks">Submit</a></button>
+                                            </div>
                                         </div>
-                                         <div class="mb-4">
-                                            <label class="form-label">Quantity : </label>
-                                            <input type="number" name="quantity" required="required"/>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label">Date Of Service: </label>
-                                            <input type="date" name="purchase_date" required="True"/>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="form-label" >Machine type :</label>
-                                            <select id="machine_type" name="machine_type">
-                                              <option value="vendor">Vendor</option>
-                                              <option value="cooler">Cooler</option>
-                                              <option value="laundry">Laundry</option>
-                                            </select>
-                                        </div>
-                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                        <div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </template>
+<!--        New user Registration-->
+        <template id="new_user_registration" name="New_user">
+            <t t-call="website.layout">
+            <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                     data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>New Customer Registration</h1>
+                    </div>
+                </div>
+                <div class="s_text_block pt40 pb40 o_colored_level " data-snippet="s_text_block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 mt-4 mt-lg-0">
+                                <p class="lead">
+                                    Create Your New Profile.
+                                </p>
+
+                                <div class="container">
+                                    <form action="/customer-create" method="post">
+                                        <div class="row">
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Name :</label>
+                                                <br />
+                                                <input type="text" required="True" name="name" class="form-control"/>
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Customer Type:</label>
+                                                <br />
+                                                <select id="user_type" name="user_type" class="form-select">
+                                                    <option value="person">Person</option>
+                                                    <option value="company">Company</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-lg-6">
+                                                   <label class="form-label">Mobile Number :</label>
+                                                <input type="Number" required="True" name="phone_number" class="form-control"/>
+
+                                            </div>
+                                             <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Email :</label>
+                                                <input type="email" required="True" name="email" class="form-control"/>
+                                            </div>
+                                             <div class="mb-3 col-lg-6">
+                                                <label class="form-label">Address :</label>
+                                                <textarea rows="4" required="True" name="address" class="form-control"/>
+                                            </div>
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    Submit</button>
+                                            </div>
+
+
                                         </div>
                                     </form>
                                 </div>
-                               </div>
-                       </div>
-                           </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                 </t>
+            </t>
         </template>
 
 
-<!--        Success Page-->
+        <!--        Success Page-->
 
 
-         <template id="service_register_success_template" name="Service Created">
+        <template id="service_register_success_template" name="Service Created">
             <t t-call="website.layout">
                 <div class="container">
                     <h3>Service Created Successfully!</h3>
@@ -86,5 +169,13 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
         </record>
+
+         <record id="menu_new_user" model="website.menu">
+            <field name="name">New Customer</field>
+            <field name="url">/newuser-odoo</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">-1</field>
+        </record>
     </data>
 </odoo>
+
