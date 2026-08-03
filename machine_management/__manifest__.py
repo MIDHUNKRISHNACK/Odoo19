@@ -18,6 +18,7 @@
              "report/machine_transfer_wizard_report_template.xml",
              "report/machine_transfer_wizard_report_action.xml",
              "wizard/machine_transfer_report_wizard_view.xml",
+             "views/portal_my_home_view.xml",
              "views/machine_machine_service_template.xml",
              "views/res_partner.xml",
              "views/machine_service_views.xml",

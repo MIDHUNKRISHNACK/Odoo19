@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="portal_my_home_machines" name="machines" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="portal_client_category_enable" t-value="True"/>
+        </xpath>
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="config_card" t-value="True"/>
+                <t t-set="icon" t-value="'/web/static/img/rfq.svg'"/>
+                <t t-set="title">Machines List</t>
+                <t t-set="url" t-value="'/my/machines'"/>
+                <t t-set="text">click here to see the machine list</t>
+
+            </t>
+        </div>
+
+    </template>
+
+    <template id="portal_machine" name="Machine Lists">
+      <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Machines</t>
+        </t>
+        <t t-if="not machine_ids">
+            <p class="alert alert-warning">There are currently no machines.</p>
+        </t>
+        <t t-if="machine_ids" t-call="portal.portal_table">
+            <thead>
+                <tr class="active">
+                    <th name="serial_number">Serial Number</th>
+                    <th name="date_purchase">Purchased Date</th>
+                    <th name="machine_name" >Machine Name</th>
+                    <th name="purchase_value" >Purchase Value</th>
+                    <th name="status">Status</th>
+                    <th name="image">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="machine_ids" t-as="machines">
+                    <tr>
+
+                        <td>
+                           <span t-esc="machines.serial_number"/>
+                        </td>
+                         <td>
+                           <span t-esc="machines.date_of_purchase"/>
+                        </td>
+
+                         <td><a t-attf-href="/machines/form?{{machines.id}} " t-esc="machines.machine_name"/>
+
+
+
+                        </td>
+                         <td>
+                           <span t-esc="machines.purchase_value"/>
+                        </td>
+                         <td>
+                           <span t-esc="machines.status"/>
+                        </td>
+                         <td>
+
+                               </td>
+                          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    </tr>
+                </t>
+            </tbody>
+        </t>
+      </t>
+    </template>
+
+
+    <template id="machines_form" name="machine details">
+       <t t-call="website.layout">
+
+                <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                     data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Machine Details</h1>
+                    </div>
+                </div>
+               <section class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="card shadow rounded-3 border-0">
+                                <div class="card-body p-4">
+                                    <h3 class="mb-4 text-center" t-esc="machine_id.machine_name"/>
+
+                                        <div class="mb-3">
+                                            <h6>
+                                                <label class="form-label">Serial Number : </label></h6>
+                                            <span t-esc="machine_id.serial_number"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <h6>
+                                            <label class="form-label">Date Of Purchase</label></h6>
+                                              <span t-esc="machine_id.date_of_purchase"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h6>
+                                            <label class="form-label">Purchase Value </label></h6>
+                                             <span t-esc="machine_id.purchase_value"/>
+                                        </div>
+                                    <div class="mb-4">
+                                        <h6>
+                                            <label class="form-label">Status</label></h6>
+                                            <span t-esc="machine_id.status"/>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+       </t>
+    </template>
+</odoo>
+

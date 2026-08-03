@@ -1,3 +1,5 @@
+from pickle import GET
+
 from odoo import http
 from odoo.http import request
 
@@ -73,7 +75,27 @@ class MachineServiceTemplateController(http.Controller):
             'date_of_service': post.get('purchase_date'),
 
         })
-        # return request.render('website.contactus_thanks')
+        return request.render('website.contactus_thanks')
 
+    @http.route('/my/machines',type='http', auth='public', website=True)
+    def machine_list(self, **post):
+        machine_ids=request.env['machine.machine'].sudo().search([])
+        return request.render('machine_management.portal_machine',{
+            'machine_ids': machine_ids,
+        })
+
+    @http.route('/machines/form',type='http', auth='public', website=True,methods=['GET'],csrf=True)
+    def machine_form(self, **post):
+        print("hello")
+        print(GET)
+        print(post)
+        print(list(post.keys()))
+        machine=list(post.keys())
+        print(machine[0])
+        machine_id=self.env['machine.machine'].search([('id','=',machine[0])])
+        print(machine_id)
+        return request.render('machine_management.machines_form',{
+            'machine_id':machine_id,
+        })
 
 
