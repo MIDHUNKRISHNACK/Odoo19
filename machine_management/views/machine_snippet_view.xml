@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Product Category tab content template-->
+<templates xml:space="preserve">
+   <t t-name="dynamic_snippet.category_data">
+       <section class="categories_section">
+           <div class="container">
+               <h3 class="section_heading">Shop by Categories</h3>
+           </div>
+       </section>
+   </t>
+</templates>

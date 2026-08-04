@@ -18,6 +18,7 @@
              "report/machine_transfer_wizard_report_template.xml",
              "report/machine_transfer_wizard_report_action.xml",
              "wizard/machine_transfer_report_wizard_view.xml",
+             "views/machine_snippet_view.xml"
              "views/portal_my_home_view.xml",
              "views/machine_machine_service_template.xml",
              "views/res_partner.xml",
@@ -29,7 +30,9 @@
              "views/machine_machine_menus.xml",
              ],
     'assets':{
-      'web.assets_backend':["machine_management/static/src/js/action_manager.js"]
+      'web.assets_backend':["machine_management/static/src/js/action_manager.js"],
+      'web.assets_frontend':["machine_management/static/src/xml/machine_snippet_highlight.xml",
+      "machine_management/static/src/js/machine_list.js",]
      },
     'author': "demo company",
     'website': "https://www.demo_company.com",

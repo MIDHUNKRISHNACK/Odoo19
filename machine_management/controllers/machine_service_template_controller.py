@@ -6,11 +6,13 @@ from odoo.http import request
 class MachineServiceTemplateController(http.Controller):
     @http.route('/newuser-odoo', type='http', auth='public', website=True)
     def create_new_customer(self, **post):
+        """Function for rendering new customer creation form template"""
         return request.render('machine_management.new_user_registration')
 
 
     @http.route('/customer-create', type='http', auth='public', website=True,methods=['POST'],csrf=True)
     def create_new_user(self, **post):
+        """Function for getting new user details from template and create new record in res.partner then renders a thnk you page"""
         if post.get('user_type')=='person':
             request.env['res.partner'].sudo().create({
                 'company_type':'person',
@@ -36,6 +38,7 @@ class MachineServiceTemplateController(http.Controller):
 
     @http.route('/service-odoo', type='http', auth='public', website=True)
     def machine_service(self, **kwargs):
+        """Function for rendering service details form template"""
         print(self)
         customer_ids=request.env['res.partner'].sudo().search([])
         machine_ids=request.env['machine.machine'].sudo().search([])
@@ -52,6 +55,7 @@ class MachineServiceTemplateController(http.Controller):
 
     @http.route(['/service-create'], type='http', auth="public", methods=['POST'], website=True, csrf=True)
     def create_customer(self, **post):
+        """Function for creating new record in machine service model"""
         print("hiihiii")
         print("self =",self)
         print("request =",request)
@@ -59,16 +63,7 @@ class MachineServiceTemplateController(http.Controller):
         print("customer =",post.get('customer_id'))
         print("machine_name =",post.get('machine_name'))
         print("purchase_date =",post.get('purchase_date'))
-        # cus_name=request.env['res.partner'].sudo().create({
-        #     'name': post.get('cus_name'),
-        #
-        # })
-        # machine_name=request.env['machine.machine'].sudo().create({
-        #     'machine_name': post.get('name'),
-        #     'quantity': post.get('quantity'),
-        #
-        #
-        # })
+
         request.env['machine.machine.service'].sudo().create({
             'customer_id': post.get('cus_name'),
             'machine_id': post.get('machine_name'),
@@ -79,6 +74,7 @@ class MachineServiceTemplateController(http.Controller):
 
     @http.route('/my/machines',type='http', auth='public', website=True)
     def machine_list(self, **post):
+        """Function for passing the machine record set to the portal template"""
         machine_ids=request.env['machine.machine'].sudo().search([])
         return request.render('machine_management.portal_machine',{
             'machine_ids': machine_ids,
@@ -86,6 +82,7 @@ class MachineServiceTemplateController(http.Controller):
 
     @http.route('/machines/form',type='http', auth='public', website=True,methods=['GET'],csrf=True)
     def machine_form(self, **post):
+        """Function for passing the specific machine record and url for redirection to the basic template"""
         print("hello")
         print(GET)
         print(post)
@@ -94,8 +91,25 @@ class MachineServiceTemplateController(http.Controller):
         print(machine[0])
         machine_id=self.env['machine.machine'].search([('id','=',machine[0])])
         print(machine_id)
+        machine_ref=self.env.ref('machine_management.machine_mangt_actions')
+        print(machine_ref.id)
+        link="/odoo/action-"+str(machine_ref.id)+"/"+str(machine[0])
+        print("link",link)
+
         return request.render('machine_management.machines_form',{
             'machine_id':machine_id,
+            'link':link,
+
         })
+
+    @http.route('/get_top_machine_list',auth='public', type='jsonrpc', website=True)
+    def get_top_machine_list(self, **post):
+     print(self)
+     machine_ids=request.env['machine.machine'].sudo().search([])
+     print(machine_ids)
+     return machine_ids
+
+
+
 
 

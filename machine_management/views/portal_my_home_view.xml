@@ -51,8 +51,6 @@
 
                          <td><a t-attf-href="/machines/form?{{machines.id}} " t-esc="machines.machine_name"/>
 
-
-
                         </td>
                          <td>
                            <span t-esc="machines.purchase_value"/>
@@ -61,8 +59,9 @@
                            <span t-esc="machines.status"/>
                         </td>
                          <td>
+                             <img class="rounded object-fit-cover" t-att-src="image_data_uri(machines.image)" alt="Contact" width="50"/>
 
-                               </td>
+                          </td>
                           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                     </tr>
@@ -74,52 +73,77 @@
 
 
     <template id="machines_form" name="machine details">
-       <t t-call="website.layout">
+        <t t-call="website.layout">
 
-                <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
-                     data-snippet="s_title" data-scroll-background-ratio="1">
-                    <span class="s_parallax_bg oe_img_bg"
-                          style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
-                    <div class="o_we_bg_filter bg-black-50"/>
-                    <div class="container">
-                        <h1>Machine Details</h1>
-                    </div>
+            <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                 data-snippet="s_title" data-scroll-background-ratio="1">
+                <span class="s_parallax_bg oe_img_bg"
+                      style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                <div class="o_we_bg_filter bg-black-50"/>
+                <div class="container">
+                    <h1>Machine Details</h1>
                 </div>
-               <section class="container py-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 col-lg-5">
-                            <div class="card shadow rounded-3 border-0">
-                                <div class="card-body p-4">
-                                    <h3 class="mb-4 text-center" t-esc="machine_id.machine_name"/>
-
-                                        <div class="mb-3">
-                                            <h6>
-                                                <label class="form-label">Serial Number : </label></h6>
-                                            <span t-esc="machine_id.serial_number"/>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h6>
-                                            <label class="form-label">Date Of Purchase</label></h6>
-                                              <span t-esc="machine_id.date_of_purchase"/>
-                                        </div>
-                                        <div class="mb-4">
-                                            <h6>
-                                            <label class="form-label">Purchase Value </label></h6>
-                                             <span t-esc="machine_id.purchase_value"/>
-                                        </div>
-                                    <div class="mb-4">
+            </div>
+            <section class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card shadow rounded-3 border-0">
+                            <div class="card-body p-4">
+                                <h3 class="mb-4 text-center" t-esc="machine_id.machine_name"/>
+                                <img class="o_card_img card-img-top o_editable_media"
+                                     t-att-src="image_data_uri(machine_id.image)" alt="Image" loading="lazy"
+                                     data-mimetype="image/webp"/>
+                                <div class="col" style="display:inline-block;float:left;padding:40px;">
+                                    <div class="mb-3">
+                                        <br/>
                                         <h6>
-                                            <label class="form-label">Status</label></h6>
-                                            <span t-esc="machine_id.status"/>
-                                        </div>
-
+                                            <label class="form-label">    Serial Number :</label>
+                                        </h6>
+                                        <span t-esc="machine_id.serial_number"/>
+                                    </div>
+                                    <br/>
+                                    <div class="mb-3">
+                                        <h6>
+                                            <label class="form-label">    Date Of Purchase :</label>
+                                        </h6>
+                                        <span t-esc="machine_id.date_of_purchase"/>
+                                    </div>
+                                </div>
+                                <div class="col" style="display:inline-block;float:right;padding:40px;">
+                                    <br/>
+                                    <div class="mb-3">
+                                        <h6>
+                                            <label class="form-label">Purchase Value :       </label>
+                                        </h6>
+                                        <span t-esc="machine_id.purchase_value"/>
+                                    </div>
+                                    <br/>
+                                    <div class="mb-3">
+                                        <h6>
+                                            <label class="form-label">Status :    </label>
+                                        </h6>
+                                        <span t-esc="machine_id.status"/>
+                                    </div>
 
                                 </div>
                             </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <div class="row mb-4">
+
+                                <a href="/my/machines" class="btn btn-primary" role="button">Back</a>
+                                <a t-attf-href='#{link}' class="btn btn-primary" role="button">Go To Back End</a>
+                              </div>
+
+
                         </div>
                     </div>
-                </section>
-       </t>
+                </div>
+            </section>
+        </t>
     </template>
 </odoo>
 

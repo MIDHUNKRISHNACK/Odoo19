@@ -24,7 +24,7 @@
                                 </p>
                                 <div class="container">
                                     <form action="/service-create" method="post">
-                                        <div class="row">
+                                            <div class="row">
                                             <div class="mb-3 col-lg-6">
                                                 <label class="form-label">Customer Name :</label>
                                                 <select id="customer_id" name="cus_name" class="form-select">
@@ -66,7 +66,17 @@
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                             <div>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <a href="/thanks">Submit</a></button>
+                                                    Submit</button>
+<!--                                                    <a href="/thanks">Submit</a></button>-->
+                                                <a href="/newuser-odoo" class="btn btn-primary" role="button">New Customer</a>
+
+
+<!--                                                    <button type="button" class="btn btn-primary">-->
+<!--                                                        <a href="/newuser-odoo">-->
+<!--                                                            <div>-->
+<!--                                                            New Customer-->
+<!--                                                            </div></a>-->
+<!--                                                </button>-->
                                             </div>
                                         </div>
                                     </form>
@@ -80,6 +90,7 @@
 
             </t>
         </template>
+
 <!--        New user Registration-->
         <template id="new_user_registration" name="New_user">
             <t t-call="website.layout">
@@ -134,6 +145,9 @@
                                             <div>
                                                 <button type="submit" class="btn btn-primary">
                                                     Submit</button>
+                                                 <a href="/service-odoo" class="btn btn-primary" role="button">Service Registration</a>
+
+
                                             </div>
 
 
