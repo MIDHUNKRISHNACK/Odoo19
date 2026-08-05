@@ -1,14 +1,20 @@
-/** @odoo-module */
 import { renderToElement } from "@web/core/utils/render";
-import publicWidget from "@web/legacy/js/public/public_widget";
+import  publicWidget  from "@web/legacy/js/public/public_widget";
 import { rpc } from "@web/core/network/rpc";
-publicWidget.registry.get_product_tab = publicWidget.Widget.extend({
+console.log("loading.......")
+console.log(publicWidget)
+console.log(publicWidget.registry)
+publicWidget.registry.machie_list= publicWidget.Widget.extend({
    selector : '.categories_section',
-   async willStart() {
-       const result = await rpc('/get_top_machine_list', {});
+    willStart:async function () {
+       console.log("HEllo")
+       const result = await rpc('/get_top_machine_list', {})
        console.log(result)
-       if(result){
-           this.$target.empty().html(renderToElement('dynamic_snippet.category_data', {result: result}))
+        if(result){
+           this.$target.html(renderToElement('dynamic_snippet.category_data', {result: result}))
        }
+
    },
+
 });
+

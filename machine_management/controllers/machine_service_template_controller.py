@@ -1,5 +1,7 @@
 from pickle import GET
 
+from reportlab.graphics.transform import inverse
+
 from odoo import http
 from odoo.http import request
 
@@ -50,7 +52,8 @@ class MachineServiceTemplateController(http.Controller):
             'user_name': user_name,
             'customer_ids': customer_ids,
             'machine_ids': machine_ids,
-            'machine_type_ids':machine_type_ids
+            'machine_type_ids':machine_type_ids,
+
         })
 
     @http.route(['/service-create'], type='http', auth="public", methods=['POST'], website=True, csrf=True)
@@ -76,6 +79,7 @@ class MachineServiceTemplateController(http.Controller):
     def machine_list(self, **post):
         """Function for passing the machine record set to the portal template"""
         machine_ids=request.env['machine.machine'].sudo().search([])
+
         return request.render('machine_management.portal_machine',{
             'machine_ids': machine_ids,
         })
@@ -105,9 +109,24 @@ class MachineServiceTemplateController(http.Controller):
     @http.route('/get_top_machine_list',auth='public', type='jsonrpc', website=True)
     def get_top_machine_list(self, **post):
      print(self)
-     machine_ids=request.env['machine.machine'].sudo().search([])
+     print("World")
+     machine_ids = request.env['machine.machine'].sudo().search([], order='serial_number desc', limit=4)
      print(machine_ids)
-     return machine_ids
+     machine_list=[]
+     for rec in machine_ids:
+         machine_list.append({
+             'serial_number': rec.serial_number,
+             'machine_name': rec.machine_name,
+             'purchase_date': rec.date_of_purchase,
+             'purchase_value': rec.purchase_value,
+             'image': rec.image,
+         })
+
+
+     return machine_list
+
+
+
 
 
 

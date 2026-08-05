@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
-<template id="machine_snippet_template" name="machine Snippet">
-            <section class="s_basic_snippet">
-                <div class="container py-4">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                             <h2>Machine List</h2>
-                            <p>
-                                Machine list snippet
-                                You can use it to display fixed content on your website.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </template>
+<!--Product Category tab content template-->
+<templates xml:space="preserve">
+   <t t-name="dynamic_snippet.category_data">
+       <section class="s_dynamic_snippet_content oe_unremovable oe_unmovable o_not_editable col s_col_no_resize o_colored_level">
+           <div class="container">
+               <h3 class="section_heading">Machine List</h3>
+			    <div class="container" style="display: flex;
+                        columns: 4; ">
 
-    <template id="machine_list_snippet" inherit_id="website.snippets" name="Machine list Snippet">
-        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
-            <t t-snippet="machine_management.machine_snippet_template"
-              t-thumbnail="/dynamic_snippet/static/src/images.jpeg"/> </xpath>
-        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
-            <t t-snippet="machine_management.machine_snippet_template"/>
-        </xpath>
-    </template>
-</odoo>
+			   <t t-foreach="result" t-as="machine" t-key="machine.id">
+
+                <div class="card shadow rounded-3 border-0 " style=" flex-grow: 1;
+            margin: 10px;
+            width: 150px;
+height:300px">
+<!--					<img class="rounded object-fit-cover" t-att-src="image_data_uri(machines.image)" alt="Contact" width="50"/>-->
+
+					<h4 class="mb-4 text-center" t-esc="machine.machine_name"/>
+				</div>
+
+							   </t>
+				</div>
+
+		   </div>
+
+
+
+
+
+       </section>
+   </t>
+</templates>
