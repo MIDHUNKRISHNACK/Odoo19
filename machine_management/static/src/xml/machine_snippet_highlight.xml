@@ -1,33 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--Product Category tab content template-->
 <templates xml:space="preserve">
    <t t-name="dynamic_snippet.category_data">
        <section class="s_dynamic_snippet_content oe_unremovable oe_unmovable o_not_editable col s_col_no_resize o_colored_level">
-           <div class="container">
-               <h3 class="section_heading">Machine List</h3>
-			    <div class="container" style="display: flex;
-                        columns: 4; ">
+          <h3 class="section_heading text-center">Machine List</h3>
+            <div t-attf-id="course_carousel{{chunks.id}}" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval">
+                <div class="carousel-inner" >
+                <t t-foreach="chunks" t-as="rec" t-key="rec.id">
+                    <div t-att-class="rec.is_active ? 'carousel-item active' : 'carousel-item'">
+                    <div class="container" style="display:block;columns: 4;">
+                        <t t-foreach="rec" t-as="machine" t-key="machine.id">
 
-			   <t t-foreach="result" t-as="machine" t-key="machine.id">
+                               <div class="card shadow rounded-3 border-0 " style="margin: 10px;width: 200;height:200">
+                                <a t-attf-href="/machines/form?{{machine.id}}">
+                                <img class="card-img-top" style="height: 150; width: 150;"
+                                     t-att-src="machine.machine_image" alt="machine"/>
+                                </a>
+                                <br/>
+                                <br/>
+                                <h4 class="mb-4 text-center" t-esc="machine.machine_name"/>
+                                <br/>
+                                <br/>
+                               </div>
 
-                <div class="card shadow rounded-3 border-0 " style=" flex-grow: 1;
-            margin: 10px;
-            width: 150px;
-height:300px">
-<!--					<img class="rounded object-fit-cover" t-att-src="image_data_uri(machines.image)" alt="Contact" width="50"/>-->
-
-					<h4 class="mb-4 text-center" t-esc="machine.machine_name"/>
-				</div>
-
-							   </t>
-				</div>
-
-		   </div>
-
-
-
-
+				          </t>
+                    </div>
+				       </div>
+                </t>
+                </div>
+           <a t-attf-href="#course_carousel{{chunks.id}}" class="carousel-control-prev" data-bs-slide="prev" role="button"
+              aria-label="Previous" title="Previous" style="color:red">
+        	<span class="fa fa-chevron-circle-left fa-2x"/>
+               <span class="visually-hidden">Previous</span>
+    	</a>
+           <a t-attf-href="#course_carousel{{chunks.id}}" class="carousel-control-next" data-bs-slide="next" role="button"
+              aria-label="Next" title="Next" style="color:red">
+        	<span class="fa fa-chevron-circle-right fa-2x"/>
+               <span class="visually-hidden">Next</span>
+    	</a>
+            </div>
 
        </section>
    </t>
 </templates>
+

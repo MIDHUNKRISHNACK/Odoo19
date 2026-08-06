@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-   <template id="category_template_highlight" name="Category Highlight">
+   <template id="category_template_highlight" name="Machine List">
        <section class="categories_section">
            <div class="container">
                <div class="alert alert-info">
-                   <h4>Your Category Highlight Tab snippet will be displayed here...
+                   <h4>Top 4 Machines List snippet will be displayed here...
                        Please save to view the snippet
                    </h4>
+                   <div id="#top_products_carousel"/>
                </div>
            </div>
        </section>

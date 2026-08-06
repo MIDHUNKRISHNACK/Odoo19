@@ -135,6 +135,7 @@
                             <div class="row mb-4">
 
                                 <a href="/my/machines" class="btn btn-primary" role="button">Back</a>
+                                <a href="/#" class="btn btn-primary" role="button">Back to Home</a>
                                 <a t-attf-href='#{link}' class="btn btn-primary" role="button">Go To Back End</a>
                               </div>
 

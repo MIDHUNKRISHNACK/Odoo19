@@ -110,20 +110,27 @@ class MachineServiceTemplateController(http.Controller):
     def get_top_machine_list(self, **post):
      print(self)
      print("World")
-     machine_ids = request.env['machine.machine'].sudo().search([], order='serial_number desc', limit=4)
+     machine_ids=request.env['machine.machine'].sudo().search([], order='serial_number desc')
      print(machine_ids)
+
      machine_list=[]
      for rec in machine_ids:
          machine_list.append({
+             'id': rec.id,
              'serial_number': rec.serial_number,
              'machine_name': rec.machine_name,
              'purchase_date': rec.date_of_purchase,
              'purchase_value': rec.purchase_value,
-             'image': rec.image,
+             'machine_image':'/web/image/machine.machine/%s/image'%rec.id,
+             'status': rec.status,
          })
 
-
      return machine_list
+
+
+
+
+
 
 
 
