@@ -26,7 +26,12 @@ publicWidget.registry.machie_list= publicWidget.Widget.extend({
         console.log('chunks',chunks)
         chunks[0].is_active = true
         console.log('this.$target',this.$target)
-        this.$target.html(renderToElement('dynamic_snippet.category_data', {chunks: chunks}))
+        var unique_number=Math.floor(Math.random() * 10)
+        console.log("unique Number=",unique_number)
+        this.$target.html(renderToElement('dynamic_snippet.category_data', {
+            chunks: chunks,
+        unique_number:unique_number,
+        }))
 
 
 

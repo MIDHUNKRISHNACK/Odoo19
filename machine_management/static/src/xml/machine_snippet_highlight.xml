@@ -2,7 +2,7 @@
    <t t-name="dynamic_snippet.category_data">
        <section class="s_dynamic_snippet_content oe_unremovable oe_unmovable o_not_editable col s_col_no_resize o_colored_level">
           <h3 class="section_heading text-center">Machine List</h3>
-            <div t-attf-id="course_carousel{{chunks.id}}" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval">
+            <div t-attf-id="course_carousel{{unique_number}}" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval">
                 <div class="carousel-inner" >
                 <t t-foreach="chunks" t-as="rec" t-key="rec.id">
                     <div t-att-class="rec.is_active ? 'carousel-item active' : 'carousel-item'">
@@ -26,12 +26,12 @@
 				       </div>
                 </t>
                 </div>
-           <a t-attf-href="#course_carousel{{chunks.id}}" class="carousel-control-prev" data-bs-slide="prev" role="button"
+           <a t-attf-href="#course_carousel{{unique_number}}" class="carousel-control-prev" data-bs-slide="prev" role="button"
               aria-label="Previous" title="Previous" style="color:red">
         	<span class="fa fa-chevron-circle-left fa-2x"/>
                <span class="visually-hidden">Previous</span>
     	</a>
-           <a t-attf-href="#course_carousel{{chunks.id}}" class="carousel-control-next" data-bs-slide="next" role="button"
+           <a t-attf-href="#course_carousel{{unique_number}}" class="carousel-control-next" data-bs-slide="next" role="button"
               aria-label="Next" title="Next" style="color:red">
         	<span class="fa fa-chevron-circle-right fa-2x"/>
                <span class="visually-hidden">Next</span>

@@ -32,7 +32,8 @@
     'assets':{
       'web.assets_backend':["machine_management/static/src/js/action_manager.js"],
       'web.assets_frontend':["machine_management/static/src/xml/machine_snippet_highlight.xml",
-      "machine_management/static/src/js/machine_list.js",],
+      "machine_management/static/src/js/machine_list.js",
+      "machine_management/static/src/js/machine_backend.js"],
      },
     'author': "demo company",
     'website': "https://www.demo_company.com",

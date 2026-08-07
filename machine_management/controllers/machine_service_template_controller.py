@@ -127,6 +127,27 @@ class MachineServiceTemplateController(http.Controller):
 
      return machine_list
 
+    @http.route('/customer-create', type='jsonrpc', auth='public', website=True)
+    def create_new_user(self, **post):
+        """Function for getting new user details from template and create new record in res.partner then renders a thnk you page"""
+        print(post)
+
+        if post.get('type') == 'person':
+            request.env['res.partner'].sudo().create({
+                'company_type': 'person',
+                'name': post.get('name'),
+                'email': post.get('email'),
+
+            })
+        else:
+            request.env['res.partner'].sudo().create({
+                'company_type': 'company',
+                'name': post.get('name'),
+                'email': post.get('email'),
+
+            })
+
+
 
 
 

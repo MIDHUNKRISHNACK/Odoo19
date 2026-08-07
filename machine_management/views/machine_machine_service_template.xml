@@ -94,6 +94,7 @@
 <!--        New user Registration-->
         <template id="new_user_registration" name="New_user">
             <t t-call="website.layout">
+                <section class="new_user_regisration">
             <div class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
                      data-snippet="s_title" data-scroll-background-ratio="1">
                     <span class="s_parallax_bg oe_img_bg"
@@ -112,12 +113,14 @@
                                 </p>
 
                                 <div class="container">
-                                    <form action="/customer-create" method="post">
+
+<!--                                    <form action="/customer-create" method="post">-->
+                                    <form>
                                         <div class="row">
                                             <div class="mb-3 col-lg-6">
                                                 <label class="form-label">Name :</label>
                                                 <br />
-                                                <input type="text" required="True" name="name" class="form-control"/>
+                                                <input type="text" required="True" name="name" id="name" class="form-control"/>
                                             </div>
                                             <div class="mb-3 col-lg-6">
                                                 <label class="form-label">Customer Type:</label>
@@ -135,7 +138,7 @@
                                             </div>
                                              <div class="mb-3 col-lg-6">
                                                 <label class="form-label">Email :</label>
-                                                <input type="email" required="True" name="email" class="form-control"/>
+                                                <input type="email" id="email" required="True" name="email" class="form-control"/>
                                             </div>
                                              <div class="mb-3 col-lg-6">
                                                 <label class="form-label">Address :</label>
@@ -143,7 +146,7 @@
                                             </div>
                                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                             <div>
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit" class="btn btn-primary" id="submit">
                                                     Submit</button>
                                                  <a href="/service-odoo" class="btn btn-primary" role="button">Service Registration</a>
 
@@ -158,6 +161,7 @@
                         </div>
                     </div>
                 </div>
+                </section>
             </t>
         </template>
 
