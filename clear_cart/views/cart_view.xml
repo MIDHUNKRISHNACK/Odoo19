@@ -3,12 +3,11 @@
 <template id="new_demo" inherit_id="website_sale.navigation_buttons">
         <xpath expr="//div[contains(@class,'position-relative d-none d-lg-flex w-100 justify-content-center align-items-center my-2 opacity-75')]" position="before">
             <div>
-              <button type="submit" id="button_clear" name="button_clear_cart" class="btn btn-primary  w-100" href="/shop/cart/clear">
+              <a id="button_clear" name="button_clear_cart" class="btn btn-primary  w-100" href="/clear_cart">
                         <span data-oe-xpath="/t[1]/div[1]/t[1]/t[3]/a[1]/span[1]" data-oe-model="website.checkout.step" data-oe-id="6" data-oe-field="main_button_label" data-oe-type="char" data-oe-expression="next_website_checkout_step.main_button_label">Clear Cart</span>
 
-                </button>
+                </a>
                    </div>
-
 
         </xpath>
 
