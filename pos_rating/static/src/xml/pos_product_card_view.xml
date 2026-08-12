@@ -1,10 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-   <t t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
-       <xpath expr="//ProductCard" position="inside">
-           <button class="button-action btn btn-secondary" t-on-click="clickCustomAction">
-               <i class="fa fa-cog"/> Custom Action
-           </button>
+
+   <t t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension">
+     <xpath expr="//div[hasclass('product-img')]" position="before">
+           <div class="product_rating" style="float:left;padding:10px;">
+<!--               <t t-log="this"/>-->
+
+<!--               <t t-if="props.product.product_rating==false">-->
+<!--                  <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--               </t>-->
+
+               <t t-if="props.product.product_rating=='two'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+               </t>
+               <t t-elif="props.product.product_rating=='three'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+               </t>
+               <t t-elif="props.product.product_rating=='four'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+
+               </t>
+               <t t-elif="props.product.product_rating=='five'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+
+               </t>
+                <t t-elif="props.product.product_rating=='six'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                    <span class="fa fa-star" style="color:orange"></span>
+
+               </t>
+           </div>
        </xpath>
    </t>
+      <t t-name="pos_sale.Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//ul[hasclass('info-list')]" position="inside" > <div class="product_rating">
+<!--             <t t-log="this"/>-->
+
+<!--               <t t-if="props.product.product_rating==false">-->
+<!--                  <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--                   <span class="fa fa-star"></span>-->
+<!--               </t>-->
+
+               <t t-if="props.line.product_id.product_rating=='two'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+               </t>
+               <t t-elif="props.line.product_id.product_rating=='three'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+               </t>
+               <t t-elif="props.line.product_id.product_rating=='four'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+                   <span class="fa fa-star"></span>
+
+               </t>
+               <t t-elif="props.line.product_id.product_rating=='five'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star"></span>
+
+               </t>
+                <t t-elif="props.line.product_id.product_rating=='six'">
+                  <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                   <span class="fa fa-star" style="color:orange"></span>
+                    <span class="fa fa-star" style="color:orange"></span>
+
+               </t>
+           </div>
+        </xpath>
+    </t>
+    <t t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+    <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+        <div class="pos-receipt-center-align">
+<!--                 <t t-log="this"/>-->
+            </div>
+
+    </xpath>
+</t>
+     <t t-name="pos_sale.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath
+
+            expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]"
+            position="before">
+            <t t-log="this"/>
+            <button class="btn btn-secondary btn-lg flex-shrink-0 border-0" t-on-click="()=>this.onClickMessage()">
+                <span>Demoo</span>
+            </button>
+        </xpath>
+     </t>
+
 </templates>
+
+
