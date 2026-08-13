@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="machine_tree_views">
+        <field name="name">product.template.wizard.tree</field>
+        <field name="model">product.template.wizard</field>
+        <field name="arch" type="xml">
+            <list>
+           <field name="product_ids">
+                                <list editable="bottom">
+                                    <field name="product_name"/>
+                                    <field name="price"/>
+
+                                </list>
+
+                                </field>
+            </list>
+            </field>
+    </record>
+
+
+    <record id="action_product_template_wizard" model="ir.actions.act_window">
+        <field name="name">product.template.wizard</field>
+        <field name="res_model">product.template.wizard</field>
+        <field name="view_mode">list</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

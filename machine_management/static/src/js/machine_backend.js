@@ -1,6 +1,7 @@
 import { Interaction } from "@web/public/interaction";
 import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
+import { renderToElement } from "@web/core/utils/render";
 
 console.log('js triggered');
 
@@ -24,6 +25,8 @@ export class CounterInteraction extends Interaction {
          type:this.type,
          email:this.email})
          console.log(result)
+
+
     }
 
 

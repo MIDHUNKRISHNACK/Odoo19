@@ -1,0 +1,18 @@
+{
+    'name': "product_varient_price_update",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ showing a new Wizard for Changing the product varient price """,
+    'description': """showing a new Wizard for Changing the product varient price  """,
+    'depends': ['base','sale','product'],
+    'data': ["security/ir.model.access.csv",
+             "views/product_template_view.xml",
+             "wizard/product_template_wizard_view.xml",
+             ],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}
