@@ -1,0 +1,18 @@
+{
+    'name': "purchase_order_changes_tracking",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """ Purchase Order Price Change TrackingClient Requirement """,
+    'description': """ Purchase Order Price Change TrackingClient Requirement """,
+    'depends': ['base','purchase','product'],
+    'data': ["security/ir.model.access.csv",
+             "views/purchase_order_view.xml",
+             "views/purchase_order_changes_history_view.xml",
+             ],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

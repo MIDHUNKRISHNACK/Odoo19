@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!--    treeview-->
+    <record model="ir.ui.view" id="purchase_order_changes_history_tree_view">
+        <field name="name">purchase_order_changes_history</field>
+        <field name="model">purchase.order.changes.history</field>
+        <field name="arch" type="xml">
+            <list>
+                 <field name="revision_number" />
+                <field name="modified_user"/>
+                <field name="modified_date"/>
+                <field name="changes_history"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!--default-->
+
+    <record id="purchase_order_changes_history_actions" model="ir.actions.act_window">
+        <field name="name">History</field>
+        <field name="res_model">purchase.order.changes.history</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>
+
+

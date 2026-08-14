@@ -4,16 +4,28 @@
         <field name="name">product.template.wizard.tree</field>
         <field name="model">product.template.wizard</field>
         <field name="arch" type="xml">
-            <list>
+            <form>
+                <field name="product_id"/>
            <field name="product_ids">
                                 <list editable="bottom">
-                                    <field name="product_name"/>
+                                    <field name="product_id"/>
                                     <field name="price"/>
+                                    <field name="updated_price"/>
 
                                 </list>
 
                                 </field>
-            </list>
+                 <footer>
+                    <button name="action_update_price"
+                            string="Update"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
             </field>
     </record>
 
