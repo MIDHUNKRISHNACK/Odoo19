@@ -17,6 +17,14 @@
                         </button>
                      </div>
                 </xpath>
+                <xpath expr="//notebook" position="inside">
+                     <page string="Related Changes History " name="changes history">
+                                <list editable="bottom">
+                                    <field name="history_ids"/>
+                                </list>
+
+                     </page>
+                </xpath>
 
             </field>
         </record>

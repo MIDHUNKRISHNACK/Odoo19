@@ -1,0 +1,18 @@
+{
+    'name': "sale_order_consolidation",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """sale_order_consolidation""",
+    'description': """sale_order_consolidation""",
+    'depends': ['base','sale','product'],
+    'data': ["security/ir.model.access.csv",
+             "data/ir_actions_data.xml",
+             "views/res_partner_view.xml",
+             "wizard/res_partner_wizard_view.xml"],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

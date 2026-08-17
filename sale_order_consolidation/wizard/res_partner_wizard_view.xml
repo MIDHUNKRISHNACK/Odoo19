@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_wizard">
+        <field name="name">res.partner.wizard.form</field>
+        <field name="model">res.partner.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                <field name="partner_id"/>
+
+           <field name="sale_order_id" domain="[('id','in',sale_order_partner_ids)]"/>
+                </group>
+                 <footer>
+                    <button name="action_merge_sale_order"
+                            string="Merge"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+
+    </record>
+
+
+    <record id="action_res_partner_wizard" model="ir.actions.act_window">
+        <field name="name">res.partner.wizard</field>
+        <field name="res_model">res.partner.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
