@@ -7,15 +7,7 @@
         <field name="binding_view_types">list,form</field>
         <field name="state">code</field>
         <field name="code">
-
-            action={
-            'type': 'ir.actions.act_window',
-            'name': 'res_partner_wizard',
-            'res_model': 'res.partner.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-
-            }
+            action=records.action_wizard_open()
         </field>
     </record>
 </odoo>

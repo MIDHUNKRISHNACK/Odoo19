@@ -16,4 +16,15 @@ class ResPartner(models.Model):
 
             }
         }
+    def button_case_start(self):
+        print("button added")
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'res_partner_wizard',
+            'res_model': 'res.partner.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+
+
+        }
 
