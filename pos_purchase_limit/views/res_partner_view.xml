@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+        <record id="res_partner_inherit_view" model="ir.ui.view">
+            <field name="name">res.partner.view"</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//page[@name='sales_purchases']//group[@name='point_of_sale']" position="inside">
+
+                     <field name="is_purchase_limit" invisible="not is_setting_limit"/>
+                      <field name="purchase_limit_amount" invisible="not is_purchase_limit"/>
+                      <field name="is_setting_limit" invisible="true"/>
+
+                </xpath>
+            </field>
+        </record>
+ </data>
+</odoo>
