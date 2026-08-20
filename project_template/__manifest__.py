@@ -1,0 +1,17 @@
+{
+    'name': "project_template",
+    'version': "19.0.1.2",
+    'category': 'Technical',
+    'summary': """project template""",
+    'description': """Creating an template for  project and task "and vice versa""",
+    'depends': ['base','sale','product','project'],
+    'data': ["security/ir.model.access.csv",
+             "views/project_template_views.xml",
+             "views/project_project_views.xml",],
+    'author': "demo company",
+    'website': "https://www.demo_company.com",
+    'sequence': -10,
+    'application': True,
+    'installable': True,
+    'auto_install': True,
+}

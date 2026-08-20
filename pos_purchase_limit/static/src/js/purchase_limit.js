@@ -4,16 +4,15 @@ import { patch } from "@web/core/utils/patch";
 import { PosStore } from "@point_of_sale/app/services/pos_store";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
-
 console.log("this",this);
 patch(PosStore.prototype, {
     async pay() {
+        // Super the payment Button action and perform validation
         console.log("Function Called");
         const current_order = this.getOrder()
         console.log("current_order", current_order)
-        console.log("current_order.is_setting_limit", current_order.is_setting_limit)
-
-        if(current_order.is_setting_limit) {
+        console.log("current_order.config.is_pos_purchase_limit", current_order.config.is_pos_purchase_limit)
+        if (current_order.config.is_pos_purchase_limit) {
             if (current_order.partner_id) {
                 console.log("Continue");
                 console.log("partner_id=", current_order.partner_id.id)
@@ -25,13 +24,16 @@ patch(PosStore.prototype, {
                     if (current_order.totalDue > current_order.partner_id.purchase_limit_amount) {
                         this.dialog.add(AlertDialog, {
                             title: _t("Sorry.."),
-                            body: _t("Exceeded the Customer Limit"),
+                            body: _t("Exceeded the  "+current_order.partner_id.name+"  's  Purchase  Limit  of  "+current_order.partner_id.purchase_limit_amount+" . "),
                         });
                         return false
-
+                    }
+                    else{
+                        return super.pay()
                     }
                 } else {
                     console.log("No")
+                    return super.pay()
                 }
             } else {
                 this.dialog.add(AlertDialog, {
@@ -44,8 +46,6 @@ patch(PosStore.prototype, {
         else {
             return super.pay()
         }
-
-
 
     },
 

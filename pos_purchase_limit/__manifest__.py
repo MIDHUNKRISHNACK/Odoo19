@@ -6,7 +6,8 @@
     'description': """ user can set an purchase limit to the customer and if the customer purchases more than the limit shown an alert message """,
     'depends': ['base','sale','product',"point_of_sale",'web'],
     'data': [ "views/res_config_settings_view.xml",
-              "views/res_partner_view.xml"],
+              "views/res_partner_view.xml",
+             ],
     "assets": {
         "point_of_sale._assets_pos": [
            "pos_purchase_limit/static/src/js/purchase_limit.js",

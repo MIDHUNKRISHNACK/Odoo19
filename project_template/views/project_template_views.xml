@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo> <!--   tree view-->
+         <record model="ir.ui.view" id="project_template_tree_views">
+            <field name="name">project.template.tree</field>
+            <field name="model">project.template</field>
+            <field name="arch" type="xml">
+                <list>
+
+                    <field name="project_template_id"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                </list>
+            </field>
+        </record>
+
+
+<!--    <record model="ir.ui.view" id="project_template_forms_views">-->
+<!--        <field name="name">project.template.form</field>-->
+<!--        <field name="model">project.template</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--             <field name="project_template_id"/>-->
+<!--                    <field name="name"/>-->
+<!--                    <field name="partner_id"/>-->
+
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <menuitem id="project_template_new" name="Templates" parent="project.menu_main_pm"/>
+
+    <menuitem id="menu_project_template_new" name="ProjectTemplate" parent="project_template_new" action="action_open_project_template"/>
+
+    <record id="action_open_project_template" model="ir.actions.act_window">
+        <field name="name">project_template</field>
+        <field name="res_model">project.template</field>
+        <field name="view_mode">kanban,list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create Your First Machine</p>
+        </field>
+    </record>
+
+</odoo>

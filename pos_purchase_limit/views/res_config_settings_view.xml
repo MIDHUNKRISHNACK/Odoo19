@@ -10,8 +10,7 @@
 
                       <setting id="pos_purchase_limit" title="POS Purchase Limit" help="Applies POS Purchase Limit to the Customers">
                             <field name="is_pos_purchase_limit"/>
-                       </setting>
-
+                      </setting>
 
                 </xpath>
             </field>
