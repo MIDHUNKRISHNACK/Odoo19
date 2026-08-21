@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record model="ir.ui.view" id="project_requirement_wizard_forms_views">
+        <field name="name">project_requirement_wizard_form</field>
+        <field name="model">project.requirement.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+              <group>
+               <group>
+                <field name="project_template_id"/>
+                   <field name="company_id"/>
+
+                </group>
+                <group>
+                     <field name="user_id"/>
+                      <field name="date_start"/>
+                <field name="allocated_hours"/>
+
+                </group>
+              </group>
+
+                 <footer>
+                    <button name="action_create_project"
+                            string="Create"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_project_requirement_wizard" model="ir.actions.act_window">
+        <field name="name">project_requirement_wizard_view</field>
+        <field name="res_model">project.requirement.wizard</field>
+        <field name="view_mode">form</field>
+         </record>
+
+</odoo>

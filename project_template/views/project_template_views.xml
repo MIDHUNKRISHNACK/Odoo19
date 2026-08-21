@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo> <!--   tree view-->
+<odoo>
+    <!--   tree view-->
          <record model="ir.ui.view" id="project_template_tree_views">
             <field name="name">project.template.tree</field>
             <field name="model">project.template</field>
@@ -14,27 +15,70 @@
         </record>
 
 
-<!--    <record model="ir.ui.view" id="project_template_forms_views">-->
-<!--        <field name="name">project.template.form</field>-->
-<!--        <field name="model">project.template</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <form>-->
-<!--             <field name="project_template_id"/>-->
-<!--                    <field name="name"/>-->
-<!--                    <field name="partner_id"/>-->
+    <record model="ir.ui.view" id="project_template_forms_views">
+        <field name="name">project_template_form</field>
+        <field name="model">project.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                      <button name="button_project_create" type="object" string="Create Project" class="oe_highlight" />
 
-<!--            </form>-->
-<!--        </field>-->
-<!--    </record>-->
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                          <button class="oe_stat_button" type="object"
+                            name="action_open_project_list"
+                            icon="fa-check">
+                              <div class="o_stat_info">
+                            <field name="task_count" class="o_stat_value" widget="statinfo" nolabel="true"/>
+                                  <span class="o_stat_text">Tasks</span>
+                              </div>
+                        </button>
+                    </div>
+                 <widget name="web_ribbon" text="Template" bg_color="text-bg-danger" invisible="not is_ribbon_template"/>
+
+               <group>
+                <field name="name"/>
+                <field name="partner_id"/>
+                   <field name="project_template_id"/>
+
+                </group>
+                <group>
+                        <notebook>
+                            <page string="Related Tasks" name="tasks">
+                                <field name="task_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="project_template_id"/>
+                                    <field name="tag_ids"/>
+                                    <field name="allocated_hours"/>
+                                </list>
+                                </field>
+
+                            </page>
+                            <page string="Description" name="description">
+                                <group>
+                                <field name="description"/>
+                                </group>
+                            </page>
+                        </notebook>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
 
     <menuitem id="project_template_new" name="Templates" parent="project.menu_main_pm"/>
 
-    <menuitem id="menu_project_template_new" name="ProjectTemplate" parent="project_template_new" action="action_open_project_template"/>
+    <menuitem id="menu_project_template_new" name="ProjectTemplate" parent="project_template.project_template_new" action="action_open_project_template"/>
+    <menuitem id="menu_task_template_new" name="TaskTemplate" parent="project_template.project_template_new" action="action_open_task_template"/>
+
 
     <record id="action_open_project_template" model="ir.actions.act_window">
         <field name="name">project_template</field>
         <field name="res_model">project.template</field>
-        <field name="view_mode">kanban,list</field>
+        <field name="view_mode">kanban,form,list</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create Your First Machine</p>
         </field>

@@ -6,6 +6,8 @@
     'description': """Creating an template for  project and task "and vice versa""",
     'depends': ['base','sale','product','project'],
     'data': ["security/ir.model.access.csv",
+             "wizard/project_requirement_wizard_view.xml",
+             "views/task_template_view.xml",
              "views/project_template_views.xml",
              "views/project_project_views.xml",],
     'author': "demo company",

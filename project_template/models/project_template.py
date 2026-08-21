@@ -9,20 +9,43 @@ class ProjectTemplate(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer', bypass_search_access=True, tracking=True,
                                  domain="['|', ('company_id', '=?', company_id), ('company_id', '=', False)]",
                                  index='btree_not_null')
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.user.company_id.id)
 
-    task_ids=fields.One2many('project.task', 'project_template_id', string='Tasks')
+    task_ids=fields.One2many('task.template', 'project_template_id', string='Tasks')
+    is_ribbon_template=fields.Boolean(string="Is Ribbon", default=True)
+    task_count=fields.Integer(string="Task Count",compute="_compute_task_count",store=True)
 
-    # tasks = fields.One2many('project.task', 'project_id', string="Task Activities")
-    #
-    # task_ids = fields.One2many('project.task', 'project_id', string='Tasks', export_string_translation=False,domain="[('is_closed', '=', False)]")
+    def _compute_task_count(self):
+        self.task_count = len(self.task_ids)
 
-    # date_start = fields.Date(string='Start Date', copy=False)
-    # date = fields.Date(string='Expiration Date', copy=False, index=True, tracking=True,
-    #                    help="Date on which this project ends. The timeframe defined on the project is taken into account when viewing its planning.")
-    # allow_task_dependencies = fields.Boolean('Task Dependencies', inverse='_inverse_allow_task_dependencies')
-    # allow_milestones = fields.Boolean('Milestones', inverse='_inverse_allow_milestones')
-    # allow_recurring_tasks = fields.Boolean('Recurring Tasks', inverse='_inverse_allow_recurring_tasks')
-    # tag_ids = fields.Many2many('project.tags', relation='project_project_project_tags_rel', string='Tags')
+
+    def button_project_create(self):
+        print("project")
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Create New Project',
+            'res_model': 'project.requirement.wizard',
+            'context': {
+                'default_project_template_id': self.id,
+                'default_company_id': self.company_id.id,
+                'default_task_ids': self.task_ids.ids,
+            },
+            'view_mode': 'form',
+            'target': 'new',
+        }
+
+
+    def action_open_project_list(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'open_task_list',
+            'res_model':'task.template',
+            'domain': [("id", "in", self.task_ids.ids)],
+            'view_mode': 'list,form',
+            'target': 'self',
+        }
+
+
 
 
 
